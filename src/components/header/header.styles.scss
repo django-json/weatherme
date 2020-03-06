@@ -1,0 +1,30 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	padding: 1em;
+	background-color: #fff;
+
+	.header-logo-container {
+		display: flex;
+
+		.header-logo {
+			width: 150px;
+			height: 150px;
+			margin-right: 1em;
+
+			img {
+				width: 100%;
+			}
+		}
+
+		.header-title {
+			align-self: center;
+
+			p {
+				line-height: .3em;
+				align-self: center;
+			}
+		}
+		
+	}
+}

@@ -1,0 +1,27 @@
+.city-list-item {
+	display: flex;
+	justify-content: space-between;
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 10px 1.5em;
+	margin-bottom: 1em;
+	cursor: pointer;
+
+	.city {
+		flex: 0 1 80%;
+
+		h4 {
+			margin-bottom: 0;
+		}
+	}
+
+	.city-weather {
+		display: flex;
+		flex: 0 0 20%;
+		justify-content: space-between;
+
+		.city-weather-temp {
+			text-align: center;
+		}
+	}
+}
