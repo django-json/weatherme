@@ -1,0 +1,21 @@
+.city-weather-page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	padding: 1em;
+
+	h2 {
+		text-align: center;
+		color: white;
+	}
+
+	.degree-toggle {
+		margin-bottom: 1em;
+	}
+
+	.day-cards {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
+	}
+}

@@ -7,6 +7,8 @@ h1 {
 }
 
 .App {
-	background-color: #142850;
+	/*background-color: #142850;*/
+	background: rgb(20,40,80);
+    background: linear-gradient(180deg, rgba(20,40,80,1) 50%, rgba(39,73,109,1));
 	min-height: 100vh;
 }

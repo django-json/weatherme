@@ -1,9 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './city-list-item.styles.scss';
 
 const CityListItem = () => (
-	<div className="city-list-item">
+	<div 
+		className="city-list-item"
+	>
 		<div className="city">
 			<h4>CITY NAME</h4>
 			<p>Date & Time</p>
@@ -19,4 +22,4 @@ const CityListItem = () => (
 	</div>
 );
 
-export default CityListItem;
+export default withRouter(CityListItem);
