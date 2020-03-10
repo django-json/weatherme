@@ -12,6 +12,7 @@ const customStyles = {
 		left: '50%',
 		right: '200px',
 		bottom: 'auto',
+		minWidth: "300px",
 		transform: 'translate(-50%, -50%)'
 	}
 };
@@ -26,25 +27,37 @@ const DayCardModal = ({ isOpen, closeModal, contentLabel, fullReading }) => {
 				style={customStyles}
 				contentLabel={contentLabel}
 			>
-				<button className="modal-close" onClick={closeModal}>
-					Close
-				</button>
+				<div className="clear-fix">
+					<button className="btn" onClick={closeModal}>
+						&#10005;
+					</button>
+				</div>
 				<div className="modal-content">
-					<h3>Day</h3>
-					<span>ICON</span>
-					<p>Date & Time</p><br />
+					<div className="modal-content-header">
+						<div className="date-time">
+							<h3>DAY</h3>
+							<p>Date & Time</p>
+						</div>
+						<div className="weather-icon">
+							<span>ICON</span>
+						</div>
+					</div>
+					<div className="modal-content-body">
+						<div className="temperature">
+							<p><b>Current Temperature</b></p>
+							<div className="min-max">
+								<span>MinT</span>/
+								<span>MaxT</span>
+							</div>
+							<p>Description</p>
+						</div>
+						<p>Humidity</p>
 
-					<p>Current Temperature</p>
-					<p>Description</p><br />
-
-					<span>MinT</span>/
-					<span>MaxT</span><br />
-
-					<p>Humidity</p><br />
-
-					<p>Wind Speed</p>
-
-					<button type="button">Generate QRCode</button>
+						<p>Wind Speed</p>
+					</div>
+					<div className="clear-fix">
+						<button className="btn" type="button">Generate QRCode</button>
+					</div>
 				</div>
 			</Modal>
 		</div>
