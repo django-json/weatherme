@@ -1,0 +1,20 @@
+.city-page {
+	width: 100%;
+	padding: 1em;
+
+	.city-page-header {
+		display: flex;
+		justify-content: space-between;
+		padding: 1.5em;
+
+		h2 {
+			margin-top: 0;
+			color: white;
+		}
+
+		button {
+			border-radius: 5px;
+			outline: none;
+		}
+	}
+}

@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
+import { connect } from 'react-redux';
 
 import './App.css';
 
-import HomePage from './pages/homepage/homepage.component';
-import CityWeatherPage from './pages/city-weather/city-weather.component';
+import CityPage from './pages/city/city.component';
+import CityWeather from './components/city-weather/city-weather.component';
 import Header from './components/header/header.component';
 
+import { fetchDailyReadingStartAsync } from './redux/weather/weather.actions';
+
 class App extends Component {
+
+  componentDidMount() {
+    const { fetchDailyReadingStartAsync } = this.props;
+
+    fetchDailyReadingStartAsync();
+  }
+
   render() {
-    return (
+    return (   
       <div className="App">
         <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/city-weather" component={CityWeatherPage} />
-        </Switch>
+          <Route exact path="/" component={CityPage} />
+          <Route path="/:cityID" component={CityWeather} />
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  fetchDailyReadingStartAsync: () => dispatch(fetchDailyReadingStartAsync())
+});
+
+export default connect(null, mapDispatchToProps)(App);

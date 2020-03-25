@@ -26,7 +26,7 @@
 
 .modal-content-header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 
 	h3 {
@@ -37,10 +37,22 @@
 	p {
 		margin-top: 0;
 	}
+
+	.weather-icon {
+
+		img {
+			margin-left: -15px;
+			width: 100px;
+		}
+	}
 }
 
 .modal-content-body {
 	.temperature {
 		margin-bottom: 2em;
+
+		.description b {
+			text-transform: uppercase;
+		}
 	}
 }

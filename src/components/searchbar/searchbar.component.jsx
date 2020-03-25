@@ -2,12 +2,16 @@ import React from 'react';
 
 import './searchbar.styles.scss';
 
-const SearchBar = () => (
+const SearchBar = ({ city, onSearchChange, onSearchSubmit }) => (
 	<div className="searchbar">
-		<input
-			type="text"
-			placeholder="Search City"
-		/>
+		<form onSubmit={onSearchSubmit}>
+			<input
+				type="text"
+				value={city}
+				placeholder="Search City"
+				onChange={onSearchChange}
+			/>
+		</form>
 	</div>
 );
 
