@@ -6,6 +6,7 @@ import './city-weather.styles.scss';
 
 import DegreeToggle from '../../components/degree-toggle/degree-toggle.component';
 import DayCard from '../../components/day-card/day-card.component';
+import Spinner from '../spinner/spinner.component';
 
 import { selectDailyReading, selectIsWeatherLoaded } from '../../redux/weather/weather.selectors';
 
@@ -28,7 +29,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 				}
 			</div>
 		</div>
-	) : ( <p>Loading...</p>)
+	) : ( <Spinner />)
 };
 
 const mapStateToProps = createStructuredSelector({
