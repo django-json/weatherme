@@ -1,14 +1,13 @@
-import React from 'react';
-import QRCode from 'qrcode.react';
-import moment from 'moment';
+import React from "react";
+import QRCode from "qrcode.react";
+import moment from "moment";
 
-import './qrcode-generator.styles.scss';
+import "./qrcode-generator.styles.scss";
 
 const QRCodeGenerator = ({ reading }) => {
-	
 	const qrcodeContent = `
-		DAY: ${moment(reading.date).format('dddd')}\n
-		DATE & TIME: ${moment(reading.date).format('MMMM Do, h:mm a')}\n\n
+		DAY: ${moment(reading.date).format("dddd")}\n
+		DATE & TIME: ${moment(reading.date).format("MMMM Do, h:mm a")}\n\n
 		CUR. TEMP: ${reading.temperature.current}°\n
 		MIN. TEMP: ${reading.temperature.min}°\n
 		MAX TEMP: ${reading.temperature.max}°\n
