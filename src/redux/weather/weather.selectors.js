@@ -1,18 +1,18 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-const selectWeather = state => state.weather;
+const selectWeather = (state) => state.weather;
 
 export const selectDailyReading = createSelector(
 	[selectWeather],
-	weather => weather.dailyReading
+	(weather) => weather.dailyReading
 );
 
 export const selectIsWeatherFetching = createSelector(
 	[selectWeather],
-	weather => weather.isFetching
+	(weather) => weather.isFetching
 );
 
-export const selectIsWeatherLoaded = createSelector(
+export const selectIsWeatherDataLoaded = createSelector(
 	[selectDailyReading],
-	dailyReading => !!dailyReading
+	(dailyReading) => !!dailyReading
 );

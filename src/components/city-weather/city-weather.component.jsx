@@ -13,8 +13,10 @@ import QRCodeGenerator from "../qrcode-generator/qrcode-generator.component";
 
 import {
 	selectDailyReading,
-	selectIsWeatherLoaded,
+	selectIsWeatherDataLoaded,
 } from "../../redux/weather/weather.selectors";
+
+import { getImgURL, formatReading } from "../../utils/utils";
 
 const customStyles = {
 	overlay: {
@@ -33,7 +35,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const CityWeather = ({ reading, isLoaded }) => {
+const CityWeather = ({ reading, isWeatherDataLoaded }) => {
 	const [degreeUnit, setDegreeUnit] = useState("celsius");
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [qrcodeIsGenerated, setQrcodeIsGenerated] = useState(false);
@@ -53,40 +55,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 		setQrcodeIsGenerated(false);
 	};
 
-	const setDate = (reading) => {
-		let newDate = new Date();
-		const weekDay = reading.dt * 1000;
-		/*Set Day*/
-		newDate.setTime(weekDay);
-
-		return newDate;
-	};
-
-	const setTemperature = (unit, value) => {
-		return unit === "fahrenheit"
-			? Math.round(value) + "°F"
-			: Math.round(((value - 32) * 5) / 9) + "°C";
-	};
-
-	const getImgURL = (reading) => {
-		return `http://openweathermap.org/img/w/${reading.weather[0].icon}.png`;
-	};
-
-	const formatReading = (reading) => {
-		return {
-			date: setDate(reading),
-			temperature: {
-				current: setTemperature(degreeUnit, reading.main.temp),
-				min: setTemperature(degreeUnit, reading.main.temp_min),
-				max: setTemperature(degreeUnit, reading.main.temp_max),
-				description: reading.weather[0].description,
-			},
-			humidity: reading.main.humidity,
-			wind: reading.wind,
-		};
-	};
-
-	return isLoaded ? (
+	return isWeatherDataLoaded ? (
 		<div className="city-weather">
 			<h2>{`${reading.city.name}, ${reading.city.country}`}</h2>
 			<DegreeToggle
@@ -98,7 +67,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 					<DayCard
 						key={index}
 						cardID={index}
-						reading={formatReading(dayReading)}
+						reading={formatReading(degreeUnit, dayReading)}
 						openModal={openModal}
 						imgURL={getImgURL(dayReading)}
 					/>
@@ -117,7 +86,10 @@ const CityWeather = ({ reading, isLoaded }) => {
 					</div>
 					{qrcodeIsGenerated ? (
 						<QRCodeGenerator
-							reading={formatReading(reading.reading[modalID])}
+							reading={formatReading(
+								degreeUnit,
+								reading.reading[modalID]
+							)}
 						/>
 					) : (
 						<div className="modal-content">
@@ -134,6 +106,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 									<h3>
 										{moment(
 											formatReading(
+												degreeUnit,
 												reading.reading[modalID]
 											).date
 										).format("dddd")}
@@ -141,6 +114,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 									<p>
 										{moment(
 											formatReading(
+												degreeUnit,
 												reading.reading[modalID]
 											).date
 										).format("MMMM Do, h:mm a")}
@@ -154,6 +128,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 										<b>
 											{
 												formatReading(
+													degreeUnit,
 													reading.reading[modalID]
 												).temperature.current
 											}
@@ -165,6 +140,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 											<b>
 												{
 													formatReading(
+														degreeUnit,
 														reading.reading[modalID]
 													).temperature.min
 												}
@@ -175,6 +151,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 											<b>
 												{
 													formatReading(
+														degreeUnit,
 														reading.reading[modalID]
 													).temperature.max
 												}
@@ -186,6 +163,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 										<b>
 											{
 												formatReading(
+													degreeUnit,
 													reading.reading[modalID]
 												).temperature.description
 											}
@@ -195,18 +173,24 @@ const CityWeather = ({ reading, isLoaded }) => {
 								<p>
 									Humidity:{" "}
 									<b>{`${
-										formatReading(reading.reading[modalID])
-											.humidity
+										formatReading(
+											degreeUnit,
+											reading.reading[modalID]
+										).humidity
 									}%`}</b>
 								</p>
 								<p>
 									Wind Speed:{" "}
 									<b>{`${
-										formatReading(reading.reading[modalID])
-											.wind.speed
+										formatReading(
+											degreeUnit,
+											reading.reading[modalID]
+										).wind.speed
 									} km/h, ${
-										formatReading(reading.reading[modalID])
-											.wind.deg
+										formatReading(
+											degreeUnit,
+											reading.reading[modalID]
+										).wind.deg
 									}°`}</b>
 								</p>
 							</div>
@@ -231,7 +215,7 @@ const CityWeather = ({ reading, isLoaded }) => {
 
 const mapStateToProps = createStructuredSelector({
 	reading: selectDailyReading,
-	isLoaded: selectIsWeatherLoaded,
+	isWeatherDataLoaded: selectIsWeatherDataLoaded,
 });
 
 export default connect(mapStateToProps)(CityWeather);
