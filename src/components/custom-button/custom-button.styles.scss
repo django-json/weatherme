@@ -1,0 +1,27 @@
+.btn {
+	padding: .5em 1em;
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color: white;
+	cursor: pointer;
+	text-transform: uppercase;
+	outline: none;
+
+	&:hover {
+		font-weight: bold;
+	}
+}
+
+.btn-outline-primary {
+	border: 2px solid rgb(47, 91, 169);
+
+	&:hover {
+		border: 2px solid rgb(20,40,80);
+		background-color: rgb(20,40,80);
+		color: white;
+	}
+}
+
+.btn-float-right {
+	float: right;
+}
