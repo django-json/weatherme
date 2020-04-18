@@ -10,6 +10,7 @@ import DegreeToggle from "../../components/degree-toggle/degree-toggle.component
 import DayCard from "../../components/day-card/day-card.component";
 import Spinner from "../spinner/spinner.component";
 import QRCodeGenerator from "../qrcode-generator/qrcode-generator.component";
+import CustomButton from "../custom-button/custom-button.component";
 
 import {
 	selectDailyReading,
@@ -80,9 +81,12 @@ const CityWeather = ({ reading, isWeatherDataLoaded }) => {
 					contentLabel="Day Card Modal"
 				>
 					<div className="clear-fix">
-						<button className="btn" onClick={closeModal}>
+						<CustomButton
+							className="btn-outline-primary btn-float-right"
+							onClick={closeModal}
+						>
 							&#10005;
-						</button>
+						</CustomButton>
 					</div>
 					{qrcodeIsGenerated ? (
 						<QRCodeGenerator
@@ -195,13 +199,12 @@ const CityWeather = ({ reading, isWeatherDataLoaded }) => {
 								</p>
 							</div>
 							<div className="clear-fix">
-								<button
-									className="btn"
-									type="button"
+								<CustomButton
+									className="btn-outline-primary"
 									onClick={() => setQrcodeIsGenerated(true)}
 								>
 									Generate QRCode
-								</button>
+								</CustomButton>
 							</div>
 						</div>
 					)}
