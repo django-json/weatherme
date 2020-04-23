@@ -18,63 +18,51 @@
 		flex-flow: row wrap;
 		justify-content: space-around;
 	}
+
+	.clear-fix {
+		overflow: hidden;
+
+		.btn {
+			margin-bottom: 1rem;
+		}
+	}
 }
 
-.clear-fix {
-	overflow: hidden;
+.modal-content {
+	.modal-content-header {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
 
-	&:last-child {
-		float: left;
+		h3 {
+			font-size: 2rem;
+			margin-top: 0;
+		}
+
+		p {
+			margin-top: 0;
+		}
+
+		.weather-icon {
+
+			img {
+				margin-left: -15px;
+				width: 100px;
+			}
+		}
+	}
+
+	.modal-content-body {
+		.temperature {
+			margin-bottom: 2em;
+
+			.description b {
+				text-transform: uppercase;
+			}
+		}
 	}
 
 	.btn {
-		margin-top: 16px;
-		margin-bottom: 16px;
-		padding: .5em 1em;
-		border: 2px solid rgb(47, 91, 169); 
-		border-radius: 5px;
-		background-color: white;
-		cursor: pointer;
-		text-transform: uppercase;
-		outline: none;
-		float: right;
-
-		&:hover {
-			border: 2px solid rgb(20,40,80);
-			font-weight: bold;
-		}
-	}
-}
-
-.modal-content-header {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-
-	h3 {
-		font-size: 2rem;
-		margin-top: 0;
-	}
-
-	p {
-		margin-top: 0;
-	}
-
-	.weather-icon {
-
-		img {
-			margin-left: -15px;
-			width: 100px;
-		}
-	}
-}
-
-.modal-content-body {
-	.temperature {
-		margin-bottom: 2em;
-
-		.description b {
-			text-transform: uppercase;
-		}
+		margin-top: 1rem;
 	}
 }

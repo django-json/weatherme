@@ -30,6 +30,7 @@ const customStyles = {
 		bottom: "auto",
 		minWidth: "300px",
 		minHeight: "470px",
+		padding: "25px",
 		transform: "translate(-50%, -50%)",
 	},
 };
@@ -198,14 +199,12 @@ const CityWeather = ({ reading, isWeatherDataLoaded }) => {
 									}°`}</b>
 								</p>
 							</div>
-							<div className="clear-fix">
-								<CustomButton
-									className="btn-outline-primary"
-									onClick={() => setQrcodeIsGenerated(true)}
-								>
-									Generate QRCode
-								</CustomButton>
-							</div>
+							<CustomButton
+								className="btn-outline-primary"
+								onClick={() => setQrcodeIsGenerated(true)}
+							>
+								Generate QRCode
+							</CustomButton>
 						</div>
 					)}
 				</Modal>

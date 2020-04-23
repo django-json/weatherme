@@ -1,0 +1,31 @@
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	right: 200px;
+	bottom: auto;
+	min-width: 300px;
+	max-width: 500px;
+	padding: 30px;
+	border-radius: 5px;
+	background-color: white;
+	outline: none;
+	transform: translate(-50%, -50%);
+}
+
+.modal-overlay {
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(20, 40, 80, 0.3);
+}
+
+.clear-fix {
+	overflow: hidden;
+
+	.btn {
+		margin-bottom: 2rem;
+	}
+}
