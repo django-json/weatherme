@@ -5,7 +5,7 @@ import { createStructuredSelector } from "reselect";
 import CityAddition from "./city-addition.component";
 
 import { fetchCityStartAsync, setCity } from "../../redux/city/city.actions";
-import { fetchDailyReadingStartAsync } from "../../redux/weather/weather.actions";
+import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
 
 import {
 	selectIsFetchingCity,
@@ -29,21 +29,13 @@ class CityAdditionContainer extends Component {
 		this.closeModal = this.closeModal.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
-		this.pushCityWithWeatherData = this.pushCityWithWeatherData.bind(this);
-	}
-
-	pushCityWithWeatherData(reading) {
-		const { setCity } = this.props;
-
-		setCity(reading);
 	}
 
 	addCity(newCity) {
-		const { fetchDailyReadingStartAsync } = this.props;
+		const { fetchDailyReadingStart } = this.props;
 
 		// Fetching the weather data of the newly added city before appending it to an array of cities in the store.
-		fetchDailyReadingStartAsync(newCity);
-		this.pushCityWithWeatherData(this.props.dailyReading);
+		fetchDailyReadingStart(newCity);
 	}
 
 	openModal() {
@@ -104,8 +96,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCityStartAsync: (city) => dispatch(fetchCityStartAsync(city)),
-	fetchDailyReadingStartAsync: (city) =>
-		dispatch(fetchDailyReadingStartAsync(city)),
+	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
 	setCity: (city) => dispatch(setCity(city)),
 });
 

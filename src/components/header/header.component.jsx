@@ -7,9 +7,9 @@ import logo from "../../assets/weatherme.png";
 
 import SearchBar from "../searchbar/searchbar.component";
 
-import { fetchDailyReadingStartAsync } from "../../redux/weather/weather.actions";
+import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
 
-const Header = ({ history, match, fetchDailyReadingStartAsync }) => {
+const Header = ({ history, match, fetchDailyReadingStart }) => {
 	const [city, setCity] = useState("");
 
 	const onSearchChange = (event) => {
@@ -19,7 +19,7 @@ const Header = ({ history, match, fetchDailyReadingStartAsync }) => {
 	const onSearchSubmit = (event) => {
 		event.preventDefault();
 
-		fetchDailyReadingStartAsync(city);
+		fetchDailyReadingStart(city);
 		history.push(`${match.path}city=${city}`);
 
 		/*Clear city state*/
@@ -49,8 +49,7 @@ const Header = ({ history, match, fetchDailyReadingStartAsync }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchDailyReadingStartAsync: (city) =>
-		dispatch(fetchDailyReadingStartAsync(city)),
+	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Header));
