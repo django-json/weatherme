@@ -1,9 +1,11 @@
 import { CityActionTypes } from "./city.types";
 
+import { formatCitySearchResults } from "./city.utils";
+
 const INITIAL_STATE = {
-	city: "",
+	cities: [],
 	isFetchingCity: false,
-	cityFetchingResult: null,
+	citySearchResults: null,
 	error: "",
 };
 
@@ -12,7 +14,7 @@ const cityReducer = (state = INITIAL_STATE, action) => {
 		case CityActionTypes.SET_CITY:
 			return {
 				...state,
-				city: action.payload,
+				cities: [...state.cities, action.payload],
 			};
 		case CityActionTypes.FETCH_CITY_START:
 			return {
@@ -23,7 +25,7 @@ const cityReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetchingCity: false,
-				cityFetchingResult: action.payload,
+				citySearchResults: formatCitySearchResults(action.payload),
 			};
 		case CityActionTypes.FETCH_CITY_FAILURE:
 			return {

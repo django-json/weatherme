@@ -30,7 +30,6 @@ export const fetchCityStartAsync = (city) => {
 			);
 
 			const responseJson = await cityData.json();
-			console.log(responseJson);
 			dispatch(fetchCitySuccess(responseJson));
 		} catch (error) {
 			dispatch(fetchCityFailure(error));

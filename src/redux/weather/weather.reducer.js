@@ -1,31 +1,31 @@
-import { WeatherActionTypes } from './weather.types';
-import { filterDailyReading } from './weather.utils';
+import { WeatherActionTypes } from "./weather.types";
+import { filterDailyReading } from "./weather.utils";
 
-const INTIAL_STATE = {
+const INITIAL_STATE = {
 	isFetching: false,
-	dailyReading: null, 
-	error: ""
+	dailyReading: null,
+	error: "",
 };
 
-const weatherReducer = (state = INTIAL_STATE, action) => {
-	switch(action.type) {
+const weatherReducer = (state = INITIAL_STATE, action) => {
+	switch (action.type) {
 		case WeatherActionTypes.FETCH_DAILY_READING_START:
 			return {
 				...state,
-				isFetching: true
-			}
+				isFetching: true,
+			};
 		case WeatherActionTypes.FETCH_DAILY_READING_SUCCESS:
 			return {
 				...state,
 				dailyReading: filterDailyReading(action.payload),
-				isFetching: false
-			}
+				isFetching: false,
+			};
 		case WeatherActionTypes.FETCH_DAILY_READING_FAILURE:
 			return {
 				...state,
 				isFetching: false,
-				error: action.payload
-			}
+				error: action.payload,
+			};
 		default:
 			return state;
 	}

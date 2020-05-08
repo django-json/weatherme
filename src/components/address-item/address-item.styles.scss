@@ -1,0 +1,21 @@
+.address-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
+	padding: 0 0.5em;
+	cursor: pointer;
+
+	p {
+		margin-right: 5px;
+	}
+
+	&:last-child {
+		border-bottom: unset;
+	}
+
+	&:hover {
+		background-color: rgba(39,73,109,1);
+		color: white;
+	}
+}

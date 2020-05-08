@@ -4,9 +4,16 @@ import { createStructuredSelector } from "reselect";
 
 import CityAddition from "./city-addition.component";
 
-import { fetchCityStartAsync } from "../../redux/city/city.actions";
+import { fetchCityStartAsync, setCity } from "../../redux/city/city.actions";
+import { fetchDailyReadingStartAsync } from "../../redux/weather/weather.actions";
 
-import { selectIsFetchingCity } from "../../redux/city/city.selectors";
+import {
+	selectIsFetchingCity,
+	selectIsCitySearchResultsLoaded,
+	selectCitySearchResults,
+} from "../../redux/city/city.selectors";
+
+import { selectDailyReading } from "../../redux/weather/weather.selectors";
 
 class CityAdditionContainer extends Component {
 	constructor() {
@@ -17,13 +24,29 @@ class CityAdditionContainer extends Component {
 			city: "",
 		};
 
-		this.onHandleAddCity = this.onHandleAddCity.bind(this);
+		this.addCity = this.addCity.bind(this);
+		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.pushCityWithWeatherData = this.pushCityWithWeatherData.bind(this);
 	}
 
-	onHandleAddCity() {
+	pushCityWithWeatherData(reading) {
+		const { setCity } = this.props;
+
+		setCity(reading);
+	}
+
+	addCity(newCity) {
+		const { fetchDailyReadingStartAsync } = this.props;
+
+		// Fetching the weather data of the newly added city before appending it to an array of cities in the store.
+		fetchDailyReadingStartAsync(newCity);
+		this.pushCityWithWeatherData(this.props.dailyReading);
+	}
+
+	openModal() {
 		this.setState({ modalIsOpen: true });
 	}
 
@@ -49,17 +72,24 @@ class CityAdditionContainer extends Component {
 
 	render() {
 		const { modalIsOpen, city } = this.state;
-		const { isFetchingCity } = this.props;
+		const {
+			isFetchingCity,
+			isCitySearchResultsLoaded,
+			citySearchResults,
+		} = this.props;
 
 		return (
 			<CityAddition
 				modalIsOpen={modalIsOpen}
+				openModal={this.openModal}
 				closeModal={this.closeModal}
-				onHandleAddCity={this.onHandleAddCity}
 				city={city}
 				onSearchChange={this.onSearchChange}
 				onSearchSubmit={this.onSearchSubmit}
 				isFetchingCity={isFetchingCity}
+				isCitySearchResultsLoaded={isCitySearchResultsLoaded}
+				citySearchResults={citySearchResults}
+				addCity={this.addCity}
 			/>
 		);
 	}
@@ -67,10 +97,16 @@ class CityAdditionContainer extends Component {
 
 const mapStateToProps = createStructuredSelector({
 	isFetchingCity: selectIsFetchingCity,
+	isCitySearchResultsLoaded: selectIsCitySearchResultsLoaded,
+	citySearchResults: selectCitySearchResults,
+	dailyReading: selectDailyReading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCityStartAsync: (city) => dispatch(fetchCityStartAsync(city)),
+	fetchDailyReadingStartAsync: (city) =>
+		dispatch(fetchDailyReadingStartAsync(city)),
+	setCity: (city) => dispatch(setCity(city)),
 });
 
 export default connect(

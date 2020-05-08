@@ -1,17 +1,16 @@
-import React, { useState  } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import './header.styles.scss';
-import logo from '../../assets/weatherme.png';
+import "./header.styles.scss";
+import logo from "../../assets/weatherme.png";
 
-import SearchBar from '../searchbar/searchbar.component';
+import SearchBar from "../searchbar/searchbar.component";
 
-import { setCity } from '../../redux/city/city.actions';
-import { fetchDailyReadingStartAsync } from '../../redux/weather/weather.actions';
+import { fetchDailyReadingStartAsync } from "../../redux/weather/weather.actions";
 
-const Header = ({ history, match, setCityValue, fetchDailyReadingStartAsync }) => {
-	const [ city, setCity ] = useState("");
+const Header = ({ history, match, fetchDailyReadingStartAsync }) => {
+	const [city, setCity] = useState("");
 
 	const onSearchChange = (event) => {
 		setCity(event.target.value);
@@ -40,14 +39,18 @@ const Header = ({ history, match, setCityValue, fetchDailyReadingStartAsync }) =
 					<p>5-Day Weather Forecast</p>
 				</div>
 			</div>
-			<SearchBar city={city} onSearchChange={onSearchChange} onSearchSubmit={onSearchSubmit} />
+			<SearchBar
+				city={city}
+				onSearchChange={onSearchChange}
+				onSearchSubmit={onSearchSubmit}
+			/>
 		</div>
 	);
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	setCityValue: city => dispatch(setCity(city)),
-	fetchDailyReadingStartAsync: city => dispatch(fetchDailyReadingStartAsync(city))
+	fetchDailyReadingStartAsync: (city) =>
+		dispatch(fetchDailyReadingStartAsync(city)),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(Header));

@@ -6,6 +6,8 @@
 	bottom: auto;
 	min-width: 300px;
 	max-width: 500px;
+	height: 470px;
+	max-height: 470px;
 	padding: 30px;
 	border-radius: 5px;
 	background-color: white;
@@ -28,4 +30,8 @@
 	.btn {
 		margin-bottom: 2rem;
 	}
+}
+
+.list-container {
+	height: 305px;
 }

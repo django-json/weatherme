@@ -6,21 +6,23 @@ import "./city-addition.styles.scss";
 import SearchBar from "../searchbar/searchbar.component";
 import CustomButton from "../custom-button/custom-button.component";
 import Spinner from "../spinner/spinner.component";
+import List from "../list/list.component";
 
 const CityAddition = ({
 	modalIsOpen,
-	onHandleAddCity,
+	openModal,
 	closeModal,
 	city,
 	onSearchChange,
 	onSearchSubmit,
 	isFetchingCity,
+	isCitySearchResultsLoaded,
+	citySearchResults,
+	addCity,
 }) => {
 	return (
 		<Fragment>
-			<CustomButton onClick={() => onHandleAddCity(true)}>
-				ADD CITY
-			</CustomButton>
+			<CustomButton onClick={() => openModal()}>ADD CITY</CustomButton>
 			<Modal
 				isOpen={modalIsOpen}
 				contentLabel="City Addition Modal"
@@ -40,7 +42,19 @@ const CityAddition = ({
 					onSearchChange={onSearchChange}
 					onSearchSubmit={onSearchSubmit}
 				/>
-				{isFetchingCity ? <Spinner /> : <h3>No City Available</h3>}
+				<div className="list-container">
+					{isFetchingCity ? (
+						<Spinner />
+					) : (
+						isCitySearchResultsLoaded && (
+							<List
+								className="list-scroll"
+								onClick={addCity}
+								items={citySearchResults}
+							/>
+						)
+					)}
+				</div>
 			</Modal>
 		</Fragment>
 	);
