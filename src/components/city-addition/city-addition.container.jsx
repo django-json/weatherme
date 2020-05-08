@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect";
 
 import CityAddition from "./city-addition.component";
 
-import { fetchCityStartAsync, setCity } from "../../redux/city/city.actions";
+import { fetchCityStart, setCity } from "../../redux/city/city.actions";
 import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
 
 import {
@@ -53,12 +53,12 @@ class CityAdditionContainer extends Component {
 	async onSearchSubmit(event) {
 		event.preventDefault();
 
-		const { fetchCityStartAsync } = this.props;
+		const { fetchCityStart } = this.props;
 		const { city } = this.state;
 
 		//This condition makes sure that the city value is not an empty string
 		if (city.trim()) {
-			fetchCityStartAsync(city.toLowerCase());
+			fetchCityStart(city.toLowerCase());
 		}
 	}
 
@@ -95,7 +95,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchCityStartAsync: (city) => dispatch(fetchCityStartAsync(city)),
+	fetchCityStart: (city) => dispatch(fetchCityStart(city)),
 	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
 	setCity: (city) => dispatch(setCity(city)),
 });

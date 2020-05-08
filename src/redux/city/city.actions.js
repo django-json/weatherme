@@ -5,8 +5,9 @@ export const setCity = (value) => ({
 	payload: value,
 });
 
-export const fetchCityStart = () => ({
+export const fetchCityStart = (city) => ({
 	type: CityActionTypes.FETCH_CITY_START,
+	payload: { city: city },
 });
 
 export const fetchCitySuccess = (city) => ({
@@ -19,20 +20,20 @@ export const fetchCityFailure = (error) => ({
 	payload: error.message,
 });
 
-//thunk function to start fetching city data asynchronously
-export const fetchCityStartAsync = (city) => {
-	return async (dispatch) => {
-		try {
-			dispatch(fetchCityStart());
+// //thunk function to start fetching city data asynchronously
+// export const fetchCityStartAsync = (city) => {
+// 	return async (dispatch) => {
+// 		try {
+// 			dispatch(fetchCityStart());
 
-			const cityData = await fetch(
-				`https://api.teleport.org/api/cities/?search=${encodeURI(city)}`
-			);
+// 			const cityData = await fetch(
+// 				`https://api.teleport.org/api/cities/?search=${encodeURI(city)}`
+// 			);
 
-			const responseJson = await cityData.json();
-			dispatch(fetchCitySuccess(responseJson));
-		} catch (error) {
-			dispatch(fetchCityFailure(error));
-		}
-	};
-};
+// 			const responseJson = await cityData.json();
+// 			dispatch(fetchCitySuccess(responseJson));
+// 		} catch (error) {
+// 			dispatch(fetchCityFailure(error));
+// 		}
+// 	};
+// };
