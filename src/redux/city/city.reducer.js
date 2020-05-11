@@ -1,6 +1,7 @@
 import { CityActionTypes } from "./city.types";
 
 import { formatCitySearchResults } from "./city.utils";
+import { filterDailyReading } from "../weather/weather.utils.js";
 
 const INITIAL_STATE = {
 	cities: [],
@@ -11,15 +12,16 @@ const INITIAL_STATE = {
 
 const cityReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case CityActionTypes.SET_CITY:
+		case CityActionTypes.ADD_CITY_WITH_DATA:
 			return {
 				...state,
-				cities: [...state.cities, action.payload],
+				cities: [...state.cities, filterDailyReading(action.payload)],
 			};
 		case CityActionTypes.FETCH_CITY_START:
 			return {
 				...state,
 				isFetchingCity: true,
+				error: "",
 			};
 		case CityActionTypes.FETCH_CITY_SUCCESS:
 			return {

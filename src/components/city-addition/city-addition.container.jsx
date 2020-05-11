@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect";
 
 import CityAddition from "./city-addition.component";
 
-import { fetchCityStart, setCity } from "../../redux/city/city.actions";
+import { fetchCityStart } from "../../redux/city/city.actions";
 import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
 
 import {
@@ -12,8 +12,6 @@ import {
 	selectIsCitySearchResultsLoaded,
 	selectCitySearchResults,
 } from "../../redux/city/city.selectors";
-
-import { selectDailyReading } from "../../redux/weather/weather.selectors";
 
 class CityAdditionContainer extends Component {
 	constructor() {
@@ -91,13 +89,11 @@ const mapStateToProps = createStructuredSelector({
 	isFetchingCity: selectIsFetchingCity,
 	isCitySearchResultsLoaded: selectIsCitySearchResultsLoaded,
 	citySearchResults: selectCitySearchResults,
-	dailyReading: selectDailyReading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCityStart: (city) => dispatch(fetchCityStart(city)),
 	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
-	setCity: (city) => dispatch(setCity(city)),
 });
 
 export default connect(

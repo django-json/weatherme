@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import "./App.css";
 
-import CityPage from "./pages/city/city.component";
+import CityPageContainer from "./pages/city/city.container";
 import CityWeather from "./components/city-weather/city-weather.component";
 import Header from "./components/header/header.component";
 
@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Route exact path="/" component={CityPage} />
+        <Route exact path="/" component={CityPageContainer} />
         <Route path="/:cityID" component={CityWeather} />
       </div>
     );

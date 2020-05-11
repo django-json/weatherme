@@ -13,6 +13,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: true,
+				error: "",
 			};
 		case WeatherActionTypes.FETCH_DAILY_READING_SUCCESS:
 			return {

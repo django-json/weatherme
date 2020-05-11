@@ -14,7 +14,9 @@ const CityPage = ({ cities }) => {
 				<h2>CITIES</h2>
 				<CityAdditionContainer />
 			</div>
-			<List items={cities} itemRenderer={CityItem} />
+			<div className="list-container">
+				<List items={cities} itemRenderer={CityItem} />
+			</div>
 		</div>
 	);
 };

@@ -1,14 +1,15 @@
-import { takeEvery, call, put, all } from "redux-saga/effects";
+import { takeLatest, takeEvery, call, put, all } from "redux-saga/effects";
 
 import {
 	fetchDailyReadingSuccess,
 	fetchDailyReadingFailure,
 } from "./weather.actions";
 
-import { WeatherActionTypes } from "./weather.types";
-import { CityActionTypes } from "../city/city.types";
+import { addCityWithData } from "../city/city.actions";
 
-export function* fetchDailyReadingAsync({ payload: { city } }) {
+import { WeatherActionTypes } from "./weather.types";
+
+function* fetchDailyReadingAsync({ payload: { city } }) {
 	try {
 		//Fetching the API data
 		const fetchData = yield fetch(
@@ -29,13 +30,21 @@ export function* fetchDailyReadingAsync({ payload: { city } }) {
 	}
 }
 
+function* addNewCity({ payload }) {
+	yield put(addCityWithData(payload));
+}
+
 export function* fetchDailyReadingStart() {
-	yield takeEvery(
+	yield takeLatest(
 		WeatherActionTypes.FETCH_DAILY_READING_START,
 		fetchDailyReadingAsync
 	);
 }
 
+export function* onFetchDailyReadingSuccess() {
+	yield takeEvery(WeatherActionTypes.FETCH_DAILY_READING_SUCCESS, addNewCity);
+}
+
 export function* weatherSagas() {
-	yield all([call(fetchDailyReadingStart)]);
+	yield all([call(fetchDailyReadingStart), call(onFetchDailyReadingSuccess)]);
 }

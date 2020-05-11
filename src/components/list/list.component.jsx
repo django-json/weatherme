@@ -13,7 +13,7 @@ const List = ({ items, itemRenderer, className, ...props }) => {
 				let newProps = Object.assign({ key: index }, item, {
 					...props,
 				});
-				console.log(newProps);
+				// console.log(newProps);
 				return createElement(itemRenderer, newProps);
 			})}
 		</div>

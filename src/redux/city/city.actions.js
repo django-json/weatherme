@@ -1,7 +1,7 @@
 import { CityActionTypes } from "./city.types";
 
-export const setCity = (value) => ({
-	type: CityActionTypes.SET_CITY,
+export const addCityWithData = (value) => ({
+	type: CityActionTypes.ADD_CITY_WITH_DATA,
 	payload: value,
 });
 

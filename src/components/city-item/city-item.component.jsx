@@ -7,6 +7,7 @@ import "./city-item.styles.scss";
 import { setDate, formatReading, getImgURL } from "../../utils/utils";
 
 const CityItem = ({ city, reading, history, match }) => {
+	console.log(match);
 	return (
 		<div
 			className="city-item"
