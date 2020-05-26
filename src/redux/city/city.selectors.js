@@ -17,7 +17,8 @@ export const selectIsCitySearchResultsLoaded = createSelector(
 	(citySearchResults) => !!citySearchResults
 );
 
-export const selectNewAddedCity = createSelector(
-	[selectCity],
-	(city) => city.city
-);
+export const selectCities = createSelector([selectCity], (city) => city.cities);
+
+export const selectIsCitiesLoaded = createSelector([selectCities], (cities) => {
+	return cities.length !== 0 && cities !== undefined;
+});

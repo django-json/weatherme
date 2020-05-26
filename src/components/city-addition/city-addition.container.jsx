@@ -34,6 +34,8 @@ class CityAdditionContainer extends Component {
 
 		// Fetching the weather data of the newly added city before appending it to an array of cities in the store.
 		fetchDailyReadingStart(newCity);
+
+		this.setState({ modalIsOpen: false });
 	}
 
 	openModal() {

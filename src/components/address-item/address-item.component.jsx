@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 import "./address-item.styles.scss";
 
-const AddressItem = ({ cityName, onClick }) => (
-	<div className="address-item" onClick={() => onClick(cityName)}>
+const AddressItem = ({ cityName, handleClick }) => (
+	<div className="address-item" onClick={() => handleClick(cityName)}>
 		<p>{cityName}</p>
 	</div>
 );

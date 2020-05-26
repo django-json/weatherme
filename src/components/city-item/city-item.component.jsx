@@ -7,11 +7,10 @@ import "./city-item.styles.scss";
 import { setDate, formatReading, getImgURL } from "../../utils/utils";
 
 const CityItem = ({ city, reading, history, match }) => {
-	console.log(match);
 	return (
 		<div
 			className="city-item"
-			onClick={() => history.push(`${match.path}city=${city.name}`)}
+			onClick={() => history.push(`${match.path}${city.id}`)}
 		>
 			<div className="city-item-name">
 				<h4>{`${city.name}, ${city.country}`}</h4>

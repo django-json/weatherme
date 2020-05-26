@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import "./App.css";
 
 import CityPageContainer from "./pages/city/city.container";
-import CityWeather from "./components/city-weather/city-weather.component";
+import CityWeatherContainer from "./components/city-weather/city-weather.container";
 import Header from "./components/header/header.component";
 
 import { fetchDailyReadingStart } from "./redux/weather/weather.actions";
@@ -23,7 +23,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Route exact path="/" component={CityPageContainer} />
-        <Route path="/:cityID" component={CityWeather} />
+        <Route path="/:cityID" component={CityWeatherContainer} />
       </div>
     );
   }

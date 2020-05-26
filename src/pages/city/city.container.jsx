@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import CityPage from "./city.component";
 
+import {
+	selectCities,
+	selectIsCitiesLoaded,
+} from "../../redux/city/city.selectors";
+
 class CityContainer extends Component {
 	render() {
-		const { cities } = this.props;
-		return <CityPage cities={cities} />;
+		const { cities, isCitiesLoaded } = this.props;
+		return <CityPage isCitiesLoaded={isCitiesLoaded} cities={cities} />;
 	}
 }
-
-const mapStateToProps = (state) => ({
-	cities: state.city.cities,
+const mapStateToProps = createStructuredSelector({
+	cities: selectCities,
+	isCitiesLoaded: selectIsCitiesLoaded,
 });
 
 export default connect(mapStateToProps)(CityContainer);

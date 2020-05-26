@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React from "react";
 import Modal from "react-modal";
 import moment from "moment";
 
@@ -11,11 +9,6 @@ import DayCard from "../../components/day-card/day-card.component";
 import Spinner from "../spinner/spinner.component";
 import QRCodeGenerator from "../qrcode-generator/qrcode-generator.component";
 import CustomButton from "../custom-button/custom-button.component";
-
-import {
-	selectDailyReading,
-	selectIsWeatherDataLoaded,
-} from "../../redux/weather/weather.selectors";
 
 import { getImgURL, formatReading } from "../../utils/utils";
 
@@ -37,27 +30,19 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const CityWeather = ({ reading, isWeatherDataLoaded }) => {
-	const [degreeUnit, setDegreeUnit] = useState("celsius");
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [qrcodeIsGenerated, setQrcodeIsGenerated] = useState(false);
-	const [modalID, setModalID] = useState("");
-
-	const onDegreeUnitChange = (event) => {
-		setDegreeUnit(event.target.value);
-	};
-
-	const openModal = (modalID) => {
-		setModalIsOpen(true);
-		setModalID(modalID);
-	};
-
-	const closeModal = () => {
-		setModalIsOpen(false);
-		setQrcodeIsGenerated(false);
-	};
-
-	return isWeatherDataLoaded ? (
+const CityWeather = ({
+	reading,
+	degreeUnit,
+	modalIsOpen,
+	modalID,
+	qrcodeIsGenerated,
+	onDegreeUnitChange,
+	openModal,
+	closeModal,
+	setQrcodeIsGenerated,
+	isCitiesLoaded,
+}) => {
+	return isCitiesLoaded ? (
 		<div className="city-weather">
 			<h2>{`${reading.city.name}, ${reading.city.country}`}</h2>
 			<DegreeToggle
@@ -215,9 +200,4 @@ const CityWeather = ({ reading, isWeatherDataLoaded }) => {
 	);
 };
 
-const mapStateToProps = createStructuredSelector({
-	reading: selectDailyReading,
-	isWeatherDataLoaded: selectIsWeatherDataLoaded,
-});
-
-export default connect(mapStateToProps)(CityWeather);
+export default CityWeather;

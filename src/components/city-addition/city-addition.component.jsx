@@ -43,13 +43,16 @@ const CityAddition = ({
 					onSearchSubmit={onSearchSubmit}
 				/>
 				<div className="list-container">
+					{!isFetchingCity && !isCitySearchResultsLoaded && (
+						<h4 className="info">No Available City</h4>
+					)}
 					{isFetchingCity ? (
 						<Spinner />
 					) : (
 						isCitySearchResultsLoaded && (
 							<List
 								className="list-scroll"
-								onClick={addCity}
+								handleClick={addCity}
 								items={citySearchResults}
 							/>
 						)
