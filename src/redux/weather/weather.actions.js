@@ -1,8 +1,8 @@
 import { WeatherActionTypes } from "./weather.types";
 
-export const fetchDailyReadingStart = (city = "Cagayan de Oro") => ({
+export const fetchDailyReadingStart = (city) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_START,
-	payload: { city: city },
+	payload: { city },
 });
 
 export const fetchDailyReadingSuccess = (reading) => ({

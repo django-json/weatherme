@@ -1,11 +1,20 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import weatherReducer from './weather/weather.reducer';
-import cityReducer from './city/city.reducer';
+import weatherReducer from "./weather/weather.reducer";
+import cityReducer from "./city/city.reducer";
+
+/*redux-persist configuration*/
+const persistConfig = {
+	key: "root",
+	storage,
+	whitelist: ["city"],
+};
 
 const rootReducer = combineReducers({
 	weather: weatherReducer,
-	city: cityReducer
+	city: cityReducer,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);
