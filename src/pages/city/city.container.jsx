@@ -4,15 +4,38 @@ import { createStructuredSelector } from "reselect";
 
 import CityPage from "./city.component";
 
+import { deleteCity } from "../../redux/city/city.actions";
+
 import {
 	selectCities,
 	selectIsCitiesLoaded,
 } from "../../redux/city/city.selectors";
 
 class CityContainer extends Component {
+	constructor() {
+		super();
+
+		this.handleDeleteCity = this.handleDeleteCity.bind(this);
+	}
+
+	handleDeleteCity(event, cityID) {
+		//This will stop the bubbling process of an event from child to parent element.
+		event.stopPropagation();
+
+		const { deleteCity } = this.props;
+
+		deleteCity(cityID);
+	}
+
 	render() {
 		const { cities, isCitiesLoaded } = this.props;
-		return <CityPage isCitiesLoaded={isCitiesLoaded} cities={cities} />;
+		return (
+			<CityPage
+				handleDeleteCity={this.handleDeleteCity}
+				isCitiesLoaded={isCitiesLoaded}
+				cities={cities}
+			/>
+		);
 	}
 }
 const mapStateToProps = createStructuredSelector({
@@ -20,4 +43,8 @@ const mapStateToProps = createStructuredSelector({
 	isCitiesLoaded: selectIsCitiesLoaded,
 });
 
-export default connect(mapStateToProps)(CityContainer);
+const mapDispatchToProps = (dispatch) => ({
+	deleteCity: (id) => dispatch(deleteCity(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CityContainer);

@@ -5,6 +5,11 @@ export const addCityWithData = (value) => ({
 	payload: value,
 });
 
+export const deleteCity = (id) => ({
+	type: CityActionTypes.DELETE_CITY,
+	payload: id,
+});
+
 export const fetchCityStart = (city) => ({
 	type: CityActionTypes.FETCH_CITY_START,
 	payload: { city: city },

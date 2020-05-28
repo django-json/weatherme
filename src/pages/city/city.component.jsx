@@ -8,7 +8,7 @@ import List from "../../components/list/list.component";
 import CityItem from "../../components/city-item/city-item.component";
 import Spinner from "../../components/spinner/spinner.component";
 
-const CityPage = ({ cities, isCitiesLoaded }) => {
+const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
 	return (
 		<div className="city-page">
 			<div className="city-page-header">
@@ -17,7 +17,11 @@ const CityPage = ({ cities, isCitiesLoaded }) => {
 			</div>
 			<div className="list-container">
 				{isCitiesLoaded ? (
-					<List items={cities} itemRenderer={CityItem} />
+					<List
+						items={cities}
+						itemRenderer={CityItem}
+						handleDeleteCity={handleDeleteCity}
+					/>
 				) : (
 					<Spinner />
 				)}

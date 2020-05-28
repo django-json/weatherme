@@ -4,3 +4,7 @@ export const formatCitySearchResults = (data) => {
 		cityID: result._links["city:item"].href.split("/")[5].split(":")[1],
 	}));
 };
+
+export const removeCity = (cities, id) => {
+	return cities.filter((cityObj) => cityObj.city.id !== id);
+};

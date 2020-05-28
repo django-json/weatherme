@@ -4,9 +4,11 @@ import moment from "moment";
 
 import "./city-item.styles.scss";
 
+import CustomButton from "../custom-button/custom-button.component";
+
 import { setDate, formatReading, getImgURL } from "../../utils/utils";
 
-const CityItem = ({ city, reading, history, match }) => {
+const CityItem = ({ city, reading, history, match, handleDeleteCity }) => {
 	return (
 		<div
 			className="city-item"
@@ -35,6 +37,14 @@ const CityItem = ({ city, reading, history, match }) => {
 						{formatReading("celsius", reading[0]).temperature.max}
 					</span>
 				</div>
+			</div>
+			<div className="btn-delete">
+				<CustomButton
+					className="btn-shape-circle"
+					onClick={(event) => handleDeleteCity(event, city.id)}
+				>
+					&#10005;
+				</CustomButton>
 			</div>
 		</div>
 	);

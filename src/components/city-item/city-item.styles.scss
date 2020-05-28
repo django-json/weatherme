@@ -6,9 +6,10 @@
 	padding: 10px 1.5em;
 	margin-bottom: 1em;
 	cursor: pointer;
+	position: relative;
 
 	.city-item-name {
-		flex: 0 1 75%;
+		flex: 0 1 70%;
 
 		h4 {
 			margin-bottom: 0;
@@ -30,6 +31,18 @@
 			span {
 				padding: 0 5px;
 			}
+		}
+	}
+
+	.btn-delete {
+		position: absolute;
+		right: 10px;
+		display: none;
+	}
+
+	&:hover {
+		.btn-delete {
+			display: block;
 		}
 	}
 }

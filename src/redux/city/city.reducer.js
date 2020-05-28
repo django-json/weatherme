@@ -2,6 +2,7 @@ import { CityActionTypes } from "./city.types";
 
 import { formatCitySearchResults } from "./city.utils";
 import { filterDailyReading } from "../weather/weather.utils.js";
+import { removeCity } from "../city/city.utils.js";
 
 const INITIAL_STATE = {
 	cities: [],
@@ -16,6 +17,11 @@ const cityReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				cities: [...state.cities, filterDailyReading(action.payload)],
+			};
+		case CityActionTypes.DELETE_CITY:
+			return {
+				...state,
+				cities: removeCity(state.cities, action.payload),
 			};
 		case CityActionTypes.FETCH_CITY_START:
 			return {
