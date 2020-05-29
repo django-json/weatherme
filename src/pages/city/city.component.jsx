@@ -5,7 +5,7 @@ import "./city.styles.scss";
 // import CityList from "../../components/city-list/city-list.component";
 import CityAdditionContainer from "../../components/city-addition/city-addition.container";
 import List from "../../components/list/list.component";
-import CityItem from "../../components/city-item/city-item.component";
+import City from "../../components/city/city.component";
 import Spinner from "../../components/spinner/spinner.component";
 
 const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
@@ -19,7 +19,7 @@ const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
 				{isCitiesLoaded ? (
 					<List
 						items={cities}
-						itemRenderer={CityItem}
+						itemRenderer={City}
 						handleDeleteCity={handleDeleteCity}
 					/>
 				) : (

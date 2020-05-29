@@ -4,7 +4,7 @@ import classnames from "classnames";
 
 import "./list.styles.scss";
 
-import AddressItem from "../address-item/address-item.component";
+import Address from "../address/address.component";
 
 const List = ({ items, itemRenderer, className, ...props }) => {
 	return (
@@ -26,7 +26,7 @@ List.propTypes = {
 
 List.defaultProps = {
 	items: [],
-	itemRenderer: AddressItem,
+	itemRenderer: Address,
 };
 
 export default List;

@@ -2,13 +2,13 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
 
-import "./city-item.styles.scss";
+import "./city.styles.scss";
 
 import CustomButton from "../custom-button/custom-button.component";
 
 import { setDate, formatReading, getImgURL } from "../../utils/utils";
 
-const CityItem = ({ city, reading, history, match, handleDeleteCity }) => {
+const City = ({ city, reading, history, match, handleDeleteCity }) => {
 	return (
 		<div
 			className="city-item"
@@ -50,4 +50,4 @@ const CityItem = ({ city, reading, history, match, handleDeleteCity }) => {
 	);
 };
 
-export default withRouter(CityItem);
+export default withRouter(City);
