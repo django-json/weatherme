@@ -1,13 +1,10 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import "./header.styles.scss";
 import logo from "../../assets/weatherme.png";
 
-import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
-
-const Header = ({ history, match, fetchDailyReadingStart }) => {
+const Header = ({ history, match }) => {
 	return (
 		<div className="header">
 			<div className="header-logo-container">
@@ -25,11 +22,7 @@ const Header = ({ history, match, fetchDailyReadingStart }) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
-});
-
-export default withRouter(connect(null, mapDispatchToProps)(Header));
+export default Header;
 
 // const [city, setCity] = useState("");
 
