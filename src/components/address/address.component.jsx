@@ -3,18 +3,18 @@ import PropTypes from "prop-types";
 
 import "./address.styles.scss";
 
-const Address = ({ cityName, handleClick }) => (
-	<div className="address" onClick={() => handleClick(cityName)}>
-		<p>{cityName}</p>
+const Address = ({ name, handleClick }) => (
+	<div className="address" onClick={() => handleClick(name)}>
+		<p>{name}</p>
 	</div>
 );
 
 Address.propTypes = {
-	cityName: PropTypes.string,
+	name: PropTypes.string,
 };
 
 Address.defaultProps = {
-	cityName: "",
+	name: "",
 	onClick: () => {},
 };
 

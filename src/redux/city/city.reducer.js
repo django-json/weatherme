@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 	isFetchingCity: false,
 	citySearchResults: null,
 	error: "",
+	caretToggle: false,
 };
 
 const cityReducer = (state = INITIAL_STATE, action) => {
@@ -34,12 +35,18 @@ const cityReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetchingCity: false,
 				citySearchResults: formatCitySearchResults(action.payload),
+				caretToggle: true,
 			};
 		case CityActionTypes.FETCH_CITY_FAILURE:
 			return {
 				...state,
 				isFetchingCity: false,
 				error: action.payload,
+			};
+		case CityActionTypes.TOGGLE_CARET:
+			return {
+				...state,
+				caretToggle: !state.caretToggle,
 			};
 		default:
 			return state;

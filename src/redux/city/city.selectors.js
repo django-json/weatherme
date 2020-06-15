@@ -22,3 +22,8 @@ export const selectCities = createSelector([selectCity], (city) => city.cities);
 export const selectIsCitiesLoaded = createSelector([selectCities], (cities) => {
 	return cities.length !== 0 && cities !== undefined;
 });
+
+export const selectCaretToggle = createSelector(
+	[selectCity],
+	(city) => city.caretToggle
+);

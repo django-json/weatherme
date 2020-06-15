@@ -4,13 +4,14 @@ import { createStructuredSelector } from "reselect";
 
 import CityAddition from "./city-addition.component";
 
-import { fetchCityStart } from "../../redux/city/city.actions";
+import { fetchCityStart, toggleCaret } from "../../redux/city/city.actions";
 import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
 
 import {
 	selectIsFetchingCity,
 	selectIsCitySearchResultsLoaded,
 	selectCitySearchResults,
+	selectCaretToggle,
 } from "../../redux/city/city.selectors";
 
 class CityAdditionContainer extends Component {
@@ -27,6 +28,7 @@ class CityAdditionContainer extends Component {
 		this.closeModal = this.closeModal.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
+		this.toggleCaretToFalse = this.toggleCaretToFalse.bind(this);
 	}
 
 	addCity(newCity) {
@@ -36,6 +38,17 @@ class CityAdditionContainer extends Component {
 		fetchDailyReadingStart(newCity);
 
 		this.setState({ modalIsOpen: false });
+		this.toggleCaretToFalse();
+	}
+
+	toggleCaretToFalse() {
+		const { caretToggle } = this.props;
+
+		if (caretToggle) {
+			const { toggleCaret } = this.props;
+			//reset caretToggle state to false to only display the curet without the list
+			toggleCaret();
+		}
 	}
 
 	openModal() {
@@ -44,6 +57,7 @@ class CityAdditionContainer extends Component {
 
 	closeModal() {
 		this.setState({ modalIsOpen: false });
+		this.toggleCaretToFalse();
 	}
 
 	onSearchChange(event) {
@@ -68,6 +82,8 @@ class CityAdditionContainer extends Component {
 			isFetchingCity,
 			isCitySearchResultsLoaded,
 			citySearchResults,
+			toggleCaret,
+			caretToggle,
 		} = this.props;
 
 		return (
@@ -82,6 +98,8 @@ class CityAdditionContainer extends Component {
 				isCitySearchResultsLoaded={isCitySearchResultsLoaded}
 				citySearchResults={citySearchResults}
 				addCity={this.addCity}
+				toggleCaret={toggleCaret}
+				caretToggle={caretToggle}
 			/>
 		);
 	}
@@ -91,11 +109,13 @@ const mapStateToProps = createStructuredSelector({
 	isFetchingCity: selectIsFetchingCity,
 	isCitySearchResultsLoaded: selectIsCitySearchResultsLoaded,
 	citySearchResults: selectCitySearchResults,
+	caretToggle: selectCaretToggle,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCityStart: (city) => dispatch(fetchCityStart(city)),
 	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
+	toggleCaret: () => dispatch(toggleCaret()),
 });
 
 export default connect(

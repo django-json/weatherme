@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+import { persistReducer, createTransform } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { createWhitelistFilter } from "redux-persist-transform-filter";
 
 import weatherReducer from "./weather/weather.reducer";
 import cityReducer from "./city/city.reducer";
@@ -9,7 +10,19 @@ import cityReducer from "./city/city.reducer";
 const persistConfig = {
 	key: "root",
 	storage,
-	whitelist: ["city"],
+	transforms: [
+		createWhitelistFilter("city", ["cities"]),
+		createTransform(
+			(state) => state,
+			(state) =>
+				Object.assign({}, state, {
+					city: state.city,
+				}),
+			{
+				whitelist: "city",
+			}
+		),
+	],
 };
 
 const rootReducer = combineReducers({

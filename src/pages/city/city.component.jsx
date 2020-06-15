@@ -2,11 +2,9 @@ import React from "react";
 
 import "./city.styles.scss";
 
-// import CityList from "../../components/city-list/city-list.component";
 import CityAdditionContainer from "../../components/city-addition/city-addition.container";
 import List from "../../components/list/list.component";
 import City from "../../components/city/city.component";
-import Spinner from "../../components/spinner/spinner.component";
 
 const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
 	return (
@@ -23,7 +21,7 @@ const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
 						handleDeleteCity={handleDeleteCity}
 					/>
 				) : (
-					<Spinner />
+					<h2>No City Available. Add City to Show...</h2>
 				)}
 			</div>
 		</div>

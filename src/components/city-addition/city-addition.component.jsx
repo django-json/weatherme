@@ -19,6 +19,8 @@ const CityAddition = ({
 	isCitySearchResultsLoaded,
 	citySearchResults,
 	addCity,
+	toggleCaret,
+	caretToggle,
 }) => {
 	return (
 		<Fragment>
@@ -37,11 +39,16 @@ const CityAddition = ({
 						&#10005;
 					</CustomButton>
 				</div>
-				<SearchBar
-					city={city}
-					onSearchChange={onSearchChange}
-					onSearchSubmit={onSearchSubmit}
-				/>
+				<div className="searchbar-container">
+					<SearchBar
+						city={city}
+						onSearchChange={onSearchChange}
+						onSearchSubmit={onSearchSubmit}
+					/>
+					{isCitySearchResultsLoaded && (
+						<div className="caret" onClick={toggleCaret} />
+					)}
+				</div>
 				<div className="list-container">
 					{!isFetchingCity && !isCitySearchResultsLoaded && (
 						<h4 className="info">No Available City</h4>
@@ -49,7 +56,8 @@ const CityAddition = ({
 					{isFetchingCity ? (
 						<Spinner />
 					) : (
-						isCitySearchResultsLoaded && (
+						isCitySearchResultsLoaded &&
+						caretToggle && (
 							<List
 								className="list-scroll"
 								handleClick={addCity}

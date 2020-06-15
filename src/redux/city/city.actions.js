@@ -25,6 +25,10 @@ export const fetchCityFailure = (error) => ({
 	payload: error.message,
 });
 
+export const toggleCaret = () => ({
+	type: CityActionTypes.TOGGLE_CARET,
+});
+
 // //thunk function to start fetching city data asynchronously
 // export const fetchCityStartAsync = (city) => {
 // 	return async (dispatch) => {

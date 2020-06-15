@@ -39,3 +39,20 @@
 		text-align: center;
 	}
 }
+
+.searchbar-container {
+	position: relative;
+
+	.caret {
+		width: 10px;
+		height: 10px;
+		position: absolute;
+		right: 18px;
+		top: 13px;
+		cursor: pointer;
+		border-top: 2px solid rgb(47, 91, 169);;
+		border-right: 2px solid rgb(47, 91, 169);;
+		transform: rotate(135deg);
+		border-radius: 2px;
+	}
+}

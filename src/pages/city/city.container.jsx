@@ -15,7 +15,12 @@ class CityContainer extends Component {
 	constructor() {
 		super();
 
+		this.state = {
+			toggleCaret: false,
+		};
+
 		this.handleDeleteCity = this.handleDeleteCity.bind(this);
+		this.handleCaretToggle = this.handleCaretToggle.bind(this);
 	}
 
 	handleDeleteCity(event, cityID) {
@@ -27,11 +32,16 @@ class CityContainer extends Component {
 		deleteCity(cityID);
 	}
 
+	handleCaretToggle(event) {
+		this.setState({ toggleCaret: !this.state.toggleCaret });
+	}
+
 	render() {
 		const { cities, isCitiesLoaded } = this.props;
 		return (
 			<CityPage
 				handleDeleteCity={this.handleDeleteCity}
+				handleCaretToggle={this.handleCaretToggle}
 				isCitiesLoaded={isCitiesLoaded}
 				cities={cities}
 			/>

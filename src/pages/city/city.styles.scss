@@ -2,6 +2,10 @@
 	width: 100%;
 	padding: 1em;
 
+	h2 {
+		color: white;
+	}
+
 	.city-page-header {
 		display: flex;
 		justify-content: space-between;
@@ -9,12 +13,15 @@
 
 		h2 {
 			margin-top: 0;
-			color: white;
 		}
 	}
 
 	.list-container {
 		margin: 2em;
 		height: 100%;
+
+		h2 {
+			text-align: center;
+		}
 	}
 }
