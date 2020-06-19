@@ -21,6 +21,7 @@ class CityAdditionContainer extends Component {
 		this.state = {
 			modalIsOpen: false,
 			city: "",
+			error: "",
 		};
 
 		this.addCity = this.addCity.bind(this);
@@ -31,11 +32,11 @@ class CityAdditionContainer extends Component {
 		this.toggleCaretToFalse = this.toggleCaretToFalse.bind(this);
 	}
 
-	addCity(newCity) {
+	addCity(id) {
 		const { fetchDailyReadingStart } = this.props;
 
-		// Fetching the weather data of the newly added city before appending it to an array of cities in the store.
-		fetchDailyReadingStart(newCity);
+		// Fetching the weather data of the newly added city by city id before appending it to an array of cities in the store.
+		fetchDailyReadingStart(id);
 
 		this.setState({ modalIsOpen: false });
 		this.toggleCaretToFalse();
@@ -61,7 +62,10 @@ class CityAdditionContainer extends Component {
 	}
 
 	onSearchChange(event) {
-		this.setState({ city: event.target.value });
+		const { value } = event.target;
+		let error = value <= 0 ? "Please input a city" : "";
+
+		this.setState({ city: event.target.value, error });
 	}
 
 	async onSearchSubmit(event) {
@@ -73,11 +77,13 @@ class CityAdditionContainer extends Component {
 		//This condition makes sure that the city value is not an empty string
 		if (city.trim()) {
 			fetchCityStart(city.toLowerCase());
+		} else {
+			this.setState({ error: "Invalid city" });
 		}
 	}
 
 	render() {
-		const { modalIsOpen, city } = this.state;
+		const { modalIsOpen, city, error } = this.state;
 		const {
 			isFetchingCity,
 			isCitySearchResultsLoaded,
@@ -100,6 +106,7 @@ class CityAdditionContainer extends Component {
 				addCity={this.addCity}
 				toggleCaret={toggleCaret}
 				caretToggle={caretToggle}
+				error={error}
 			/>
 		);
 	}

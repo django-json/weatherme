@@ -1,11 +1,15 @@
 //Returns five readings.
-export const filterDailyReading = (data) => {
-	const filteredData = data.list.filter((reading) =>
-		reading.dt_txt.includes("18:00:00")
-	);
+export const filterDailyReading = ({ forecast }) => {
+	const filteredForecastData = filterForecastData(forecast);
 
 	return {
-		city: data.city,
-		reading: filteredData,
+		city: forecast.city,
+		reading: filteredForecastData,
 	};
+};
+
+const filterForecastData = (forecast) => {
+	return forecast.list.filter((reading) =>
+		reading.dt_txt.includes("18:00:00")
+	);
 };

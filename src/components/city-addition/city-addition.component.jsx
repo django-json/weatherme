@@ -21,6 +21,7 @@ const CityAddition = ({
 	addCity,
 	toggleCaret,
 	caretToggle,
+	error,
 }) => {
 	return (
 		<Fragment>
@@ -44,6 +45,7 @@ const CityAddition = ({
 						city={city}
 						onSearchChange={onSearchChange}
 						onSearchSubmit={onSearchSubmit}
+						error={error}
 					/>
 					{isCitySearchResultsLoaded && (
 						<div className="caret" onClick={toggleCaret} />

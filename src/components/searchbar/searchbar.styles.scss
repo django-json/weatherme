@@ -1,6 +1,4 @@
 .searchbar {
-	align-self: flex-end;
-
 	input {
 		width: 100%;
 		padding: 10px 15px;
@@ -11,5 +9,11 @@
 		&:focus {
 			border-color: rgb(20,40,80);
 		}
+	}
+
+	.error {
+		display: inline-block;
+		margin: 5px;
+		color: rgb(234,114,140);
 	}
 }

@@ -28,7 +28,6 @@ class CityContainer extends Component {
 		event.stopPropagation();
 
 		const { deleteCity } = this.props;
-
 		deleteCity(cityID);
 	}
 

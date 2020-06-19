@@ -1,13 +1,13 @@
 import { WeatherActionTypes } from "./weather.types";
 
-export const fetchDailyReadingStart = (city) => ({
+export const fetchDailyReadingStart = (id) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_START,
-	payload: { city },
+	payload: { city: { id } },
 });
 
-export const fetchDailyReadingSuccess = (reading) => ({
+export const fetchDailyReadingSuccess = ({ forecast, current }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_SUCCESS,
-	payload: reading,
+	payload: { forecast, current },
 });
 
 export const fetchDailyReadingFailure = (error) => ({
