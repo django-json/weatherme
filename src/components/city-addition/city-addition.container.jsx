@@ -12,6 +12,7 @@ import {
 	selectIsCitySearchResultsLoaded,
 	selectCitySearchResults,
 	selectCaretToggle,
+	selectCities,
 } from "../../redux/city/city.selectors";
 
 class CityAdditionContainer extends Component {
@@ -33,13 +34,29 @@ class CityAdditionContainer extends Component {
 	}
 
 	addCity(id) {
-		const { fetchDailyReadingStart } = this.props;
+		const { fetchDailyReadingStart, cities } = this.props;
 
-		// Fetching the weather data of the newly added city by city id before appending it to an array of cities in the store.
-		fetchDailyReadingStart(id);
+		//Restrict adding existing city
+		if (cities.length > 0) {
+			const foundDuplicateCity = cities.find(
+				(cityObj) => cityObj.city.id === id
+			);
 
-		this.setState({ modalIsOpen: false });
-		this.toggleCaretToFalse();
+			if (foundDuplicateCity === undefined) {
+				// Fetching the weather data of the newly added city by city id before appending it to an array of cities in the store.
+				fetchDailyReadingStart(id);
+
+				this.setState({ modalIsOpen: false });
+				this.toggleCaretToFalse();
+			} else {
+				this.setState({ error: "City already exist!" });
+			}
+		} else {
+			fetchDailyReadingStart(id);
+
+			this.setState({ modalIsOpen: false });
+			this.toggleCaretToFalse();
+		}
 	}
 
 	toggleCaretToFalse() {
@@ -57,7 +74,7 @@ class CityAdditionContainer extends Component {
 	}
 
 	closeModal() {
-		this.setState({ modalIsOpen: false });
+		this.setState({ modalIsOpen: false, error: "" });
 		this.toggleCaretToFalse();
 	}
 
@@ -74,7 +91,7 @@ class CityAdditionContainer extends Component {
 		const { fetchCityStart } = this.props;
 		const { city } = this.state;
 
-		//This condition makes sure that the city value is not an empty string
+		//This makes sure that the city value is not an empty string
 		if (city.trim()) {
 			fetchCityStart(city.toLowerCase());
 		} else {
@@ -117,6 +134,7 @@ const mapStateToProps = createStructuredSelector({
 	isCitySearchResultsLoaded: selectIsCitySearchResultsLoaded,
 	citySearchResults: selectCitySearchResults,
 	caretToggle: selectCaretToggle,
+	cities: selectCities,
 });
 
 const mapDispatchToProps = (dispatch) => ({

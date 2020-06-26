@@ -5,9 +5,9 @@ export const fetchDailyReadingStart = (id) => ({
 	payload: { city: { id } },
 });
 
-export const fetchDailyReadingSuccess = ({ forecast, current }) => ({
+export const fetchDailyReadingSuccess = ({ forecast }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_SUCCESS,
-	payload: { forecast, current },
+	payload: { forecast },
 });
 
 export const fetchDailyReadingFailure = (error) => ({

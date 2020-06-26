@@ -64,7 +64,6 @@ class CityWeatherContainer extends Component {
 		} = this.state;
 
 		const { isCitiesLoaded } = this.props;
-		console.log(reading);
 
 		return (
 			<CityWeather

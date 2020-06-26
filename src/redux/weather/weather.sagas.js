@@ -17,21 +17,15 @@ function* fetchDailyReadingAsync({
 	const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
 	try {
 		//Fetching the API data
-
-		const fetchCurrentWeatherData = yield fetch(
-			`http://api.openweathermap.org/data/2.5/weather?id=${id}&units=imperial&APPID=${apiKey}`
-		);
 		const fetchWeatherForecastData = yield fetch(
 			`http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=imperial&APPID=${apiKey}`
 		);
 
 		const forecastDataJson = yield fetchWeatherForecastData.json();
-		const currentDataJson = yield fetchCurrentWeatherData.json();
 		//Dispatching fetchDailyReadingSuccess action to update weatherReducer with the payload
 		yield put(
 			fetchDailyReadingSuccess({
 				forecast: forecastDataJson,
-				current: currentDataJson,
 			})
 		);
 	} catch (error) {

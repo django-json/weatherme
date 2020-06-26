@@ -37,6 +37,7 @@ class CityContainer extends Component {
 
 	render() {
 		const { cities, isCitiesLoaded } = this.props;
+
 		return (
 			<CityPage
 				handleDeleteCity={this.handleDeleteCity}

@@ -16,7 +16,10 @@ const City = ({ city, reading, history, match, handleDeleteCity }) => {
 		>
 			<div className="city-item-name">
 				<h4>{`${city.name}, ${city.country}`}</h4>
-				<p>{moment(setDate(reading[0])).format("MMMM Do, h:mm a")}</p>
+				<p>
+					<span>Tomorrow,</span>
+					{moment(setDate(reading[0])).format("MMMM Do, h:mm a")}
+				</p>
 			</div>
 			<div className="city-item-weather">
 				<img src={getImgURL(reading[0])} alt="weather icon" />
