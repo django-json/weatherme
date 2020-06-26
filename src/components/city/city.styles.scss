@@ -10,9 +10,18 @@
 
 	.city-item-name {
 		flex: 0 1 70%;
+		align-self: center;
 
 		h4 {
+			margin-top: 1em;
 			margin-bottom: 0;
+		}
+
+		p {
+			margin-top: .5em;
+			span {
+				margin-right: 5px;
+			}
 		}
 	}
 
