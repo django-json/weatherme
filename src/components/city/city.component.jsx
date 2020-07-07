@@ -18,26 +18,21 @@ const City = ({ city, reading, history, match, handleDeleteCity }) => {
 				<h4>{`${city.name}, ${city.country}`}</h4>
 				<p>
 					<span>Tomorrow,</span>
-					{moment(setDate(reading[0])).format("MMMM Do, h:mm a")}
+					{moment(setDate(reading)).format("MMMM Do, h:mm a")}
 				</p>
 			</div>
 			<div className="city-item-weather">
-				<img src={getImgURL(reading[0])} alt="weather icon" />
+				<img src={getImgURL(reading)} alt="weather icon" />
 				<div className="item-weather-temp">
 					<p>
-						{
-							formatReading("celsius", reading[0]).temperature
-								.current
-						}
+						{formatReading("celsius", reading).temperature.current}
 					</p>
 					<span>
-						Min:{" "}
-						{formatReading("celsius", reading[0]).temperature.min}
+						Min: {formatReading("celsius", reading).temperature.min}
 					</span>
 					/
 					<span>
-						Max:{" "}
-						{formatReading("celsius", reading[0]).temperature.max}
+						Max: {formatReading("celsius", reading).temperature.max}
 					</span>
 				</div>
 			</div>

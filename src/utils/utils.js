@@ -11,6 +11,18 @@
 // 	return Math.round(((value - 32) * 5) / 9) + "°C";
 // };
 
+export const getYear = (datetime) => {
+	return new Date(datetime * 1000).getFullYear();
+};
+
+export const getMonth = (datetime) => {
+	return new Date(datetime * 1000).getMonth();
+};
+
+export const getDate = (datetime) => {
+	return new Date(datetime * 1000).getDate();
+};
+
 export const setDate = (reading) => {
 	let newDate = new Date();
 	const weekDay = reading.dt * 1000;
@@ -18,6 +30,41 @@ export const setDate = (reading) => {
 	newDate.setTime(weekDay);
 
 	return newDate;
+};
+
+export const addDaytoDate = (date, numOfDay) => {
+	date.setDate(date.getDate() + numOfDay);
+	return date;
+};
+
+export const getIndexOf = (array, value) => {
+	return array.indexOf(value);
+};
+
+export const convertDateToDatetime = (date) => {
+	return date / 1000;
+};
+
+export const addHourToDate = (date, numOfHours) => {
+	return date.setHours(date.getHours() + numOfHours);
+};
+
+export const resetDateToMidnight = (date) => {
+	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
+
+export const isGreaterThan = (firstValue, secondValue) => {
+	if (firstValue > secondValue) {
+		return true;
+	}
+	return false;
+};
+
+export const isEqual = (firstValue, secondValue) => {
+	if (firstValue === secondValue) {
+		return true;
+	}
+	return false;
 };
 
 export const setTemperature = (unit, value) => {
