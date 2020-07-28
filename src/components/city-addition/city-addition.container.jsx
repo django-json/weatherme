@@ -5,7 +5,9 @@ import { createStructuredSelector } from "reselect";
 import CityAddition from "./city-addition.component";
 
 import { fetchCityStart, toggleCaret } from "../../redux/city/city.actions";
-import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
+import {
+	fetchDailyReadingForAddStart,
+} from "../../redux/weather/weather.actions";
 
 import {
 	selectIsFetchingCity,
@@ -34,7 +36,10 @@ class CityAdditionContainer extends Component {
 	}
 
 	addCity(id) {
-		const { fetchDailyReadingStart, cities } = this.props;
+		const {
+			fetchDailyReadingForAddStart,
+			cities,
+		} = this.props;
 
 		//Restrict adding existing city
 		if (cities.length > 0) {
@@ -44,7 +49,7 @@ class CityAdditionContainer extends Component {
 
 			if (foundDuplicateCity === undefined) {
 				// Fetching the weather data of the newly added city by city id before appending it to an array of cities in the store.
-				fetchDailyReadingStart(id);
+				fetchDailyReadingForAddStart(id);
 
 				this.setState({ modalIsOpen: false });
 				this.toggleCaretToFalse();
@@ -52,7 +57,7 @@ class CityAdditionContainer extends Component {
 				this.setState({ error: "City already exist!" });
 			}
 		} else {
-			fetchDailyReadingStart(id);
+			fetchDailyReadingForAddStart(id);
 
 			this.setState({ modalIsOpen: false });
 			this.toggleCaretToFalse();
@@ -139,7 +144,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCityStart: (city) => dispatch(fetchCityStart(city)),
-	fetchDailyReadingStart: (city) => dispatch(fetchDailyReadingStart(city)),
+	fetchDailyReadingForAddStart: (cityID) =>
+		dispatch(fetchDailyReadingForAddStart(cityID)),
 	toggleCaret: () => dispatch(toggleCaret()),
 });
 

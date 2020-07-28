@@ -1,8 +1,10 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
 
-import { fetchCitySuccess, fetchCityFailure } from "./city.actions";
+import { fetchCitySuccess, fetchCityFailure, addCityWithData, updateCityWithData } from "./city.actions";
 
 import { CityActionTypes } from "./city.types";
+
+// import { fetchDailyReadingAsync } from "../weather/weather.sagas";
 
 export function* fetchCityStartAsync({ payload: { city } }) {
 	try {
@@ -15,6 +17,14 @@ export function* fetchCityStartAsync({ payload: { city } }) {
 	} catch (error) {
 		yield put(fetchCityFailure(error));
 	}
+}
+
+export function* addCity({ payload }) {
+	yield put(addCityWithData(payload));
+}
+
+export function* updateCity({ payload }) {
+	yield put(updateCityWithData(payload));
 }
 
 export function* fetchCityStart() {

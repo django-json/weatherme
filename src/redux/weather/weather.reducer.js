@@ -15,12 +15,21 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
 				isFetching: true,
 				error: "",
 			};
-		case WeatherActionTypes.FETCH_DAILY_READING_SUCCESS:
+		case WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START:
+		case WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START:
+			return {
+				...state,
+				isFetching: true,
+				error: "",
+			};
+		case WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS:
+		case WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_SUCCESS:
 			return {
 				...state,
 				dailyReading: filterDailyReading(action.payload),
 				isFetching: false,
 			};
+
 		case WeatherActionTypes.FETCH_DAILY_READING_FAILURE:
 			return {
 				...state,

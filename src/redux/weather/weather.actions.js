@@ -5,6 +5,26 @@ export const fetchDailyReadingStart = (id) => ({
 	payload: { city: { id } },
 });
 
+export const fetchDailyReadingForAddStart = (id) => ({
+	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START,
+	payload: { city: { id } },
+});
+
+export const fetchDailyReadingForUpdateStart = (cityIDs) => ({
+	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START,
+	payload: { cityIDs },
+});
+
+export const fetchDailyReadingForAddSuccess = ({forecast}) => ({
+	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS,
+	payload: { forecast },
+});
+
+export const fetchDailyReadingForUpdateSuccess = ({forecast}) => ({
+	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_SUCCESS,
+	payload: { forecast },
+});
+
 export const fetchDailyReadingSuccess = ({ forecast }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_SUCCESS,
 	payload: { forecast },

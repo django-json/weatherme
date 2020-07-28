@@ -32,9 +32,16 @@ export const setDate = (reading) => {
 	return newDate;
 };
 
-export const addDaytoDate = (date, numOfDay) => {
-	date.setDate(date.getDate() + numOfDay);
-	return date;
+export const addDay = (date, numOfDay) => {
+	//Intatiating a new date with the date passed to the parameter to avoid modifying the actual date object when adding day(s) to the given date.
+	let newReferenceDate = new Date(date);
+	newReferenceDate.setDate(newReferenceDate.getDate() + numOfDay);
+	return newReferenceDate;
+};
+
+export const addHour = (date, numOfHours) => {
+	let newReferenceDate = new Date(date);
+	return newReferenceDate.setHours(newReferenceDate.getHours() + numOfHours);
 };
 
 export const getIndexOf = (array, value) => {
@@ -43,10 +50,6 @@ export const getIndexOf = (array, value) => {
 
 export const convertDateToDatetime = (date) => {
 	return date / 1000;
-};
-
-export const addHourToDate = (date, numOfHours) => {
-	return date.setHours(date.getHours() + numOfHours);
 };
 
 export const resetDateToMidnight = (date) => {

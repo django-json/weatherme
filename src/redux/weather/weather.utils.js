@@ -10,6 +10,6 @@ export const filterDailyReading = ({ forecast }) => {
 
 const filterForecastData = (forecast) => {
 	return forecast.list.filter((reading) =>
-		reading.dt_txt.includes("18:00:00")
+		reading.dt_txt.includes("21:00:00")
 	);
 };

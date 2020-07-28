@@ -5,7 +5,7 @@ import { createStructuredSelector } from "reselect";
 import CityPage from "./city.component";
 
 import { deleteCity } from "../../redux/city/city.actions";
-import { fetchDailyReadingStart } from "../../redux/weather/weather.actions";
+import { fetchDailyReadingForUpdateStart } from "../../redux/weather/weather.actions";
 
 import {
 	selectCities,
@@ -15,8 +15,8 @@ import {
 import {
 	getIndexOf,
 	convertDateToDatetime,
-	addHourToDate,
-	addDaytoDate,
+	addHour,
+	addDay,
 	resetDateToMidnight,
 } from "../../utils/utils";
 
@@ -26,33 +26,20 @@ class CityContainer extends Component {
 
 		this.state = {
 			toggleCaret: false,
-			tomorrowsWeather: [],
 		};
 
 		this.handleDeleteCity = this.handleDeleteCity.bind(this);
 		this.handleCaretToggle = this.handleCaretToggle.bind(this);
 		this.setTomorrowsWeather = this.setTomorrowsWeather.bind(this);
+		this.refreshWeather = this.refreshWeather.bind(this);
 	}
 
-	componentDidMount() {
-		// const { cities, fetchDailyReadingStart } = this.props;
-		// if (cities.length > 0) {
-		// 	const systemDate = resetDateToMidnight(new Date());
-		// 	//Get the index of the next weather data item
-		// 	//Then get and update the display of the tomorrows weather forecast from the `cities` array with respect to date today using the index.
-		// 	const index = getIndexOf(
-		// 		cities[0].reading.map((item) => item.dt),
-		// 		convertDateToDatetime(
-		// 			addHourToDate(incrementDateByOne(systemDate), 2)
-		// 		)
-		// 	);
-		// 	const tomorrowsWeather = cities.map((cityObj) => {
-		// 		return { city: cityObj.city, reading: cityObj.reading[index] };
-		// 	});
-		// 	this.setState({ tomorrowsWeather });
-		// }
-		// // If the last item is rendered, then automatically request an updated data from the weather api to get a new list of weather data.
-		// // Consider to add a refresh button above the city list for the user to choose whether to refresh the data displayed on the city-weather page to its updated state.
+	refreshWeather() {
+		console.log("Updating Weather Data");
+		const { cities, fetchDailyReadingForUpdateStart } = this.props;
+
+		const cityIDs = cities.map((cityObj) => cityObj.city.id);
+		fetchDailyReadingForUpdateStart(cityIDs);
 	}
 
 	setTomorrowsWeather() {
@@ -60,21 +47,33 @@ class CityContainer extends Component {
 
 		if (cities.length > 0) {
 			const systemDate = resetDateToMidnight(new Date());
-
-			//Get the index of the next weather data item
-			//Then get and update the display of the tomorrows weather forecast from the `cities` array with respect to date today using the index.
-			const index = getIndexOf(
-				cities[0].reading.map((item) => item.dt),
-				convertDateToDatetime(
-					addHourToDate(addDaytoDate(systemDate, 1), 2)
-				)
+			//Finding the tomorrow's weather data using tomorrow's datetime.
+			const datetimeTomorrow = convertDateToDatetime(
+				addHour(addDay(systemDate, 1), 5)
 			);
 
-			const tomorrowsWeather = cities.map((cityObj) => {
-				return { city: cityObj.city, reading: cityObj.reading[index] };
-			});
+			//Get the index of the next item
+			//To check if the currently rendered item is the last one
+			let index = getIndexOf(
+				cities[0].reading.map((item) => item.dt),
+				datetimeTomorrow
+			);
 
-			return tomorrowsWeather;
+			// If the last item is rendered, then automatically request an updated weather data from the weather api to get a new list of weather data.
+			if (index + 1 === cities[0].reading.length) {
+				console.log("I am the last item on the `cities` list");
+				this.refreshWeather();
+			}
+
+			return cities.map((cityObj) => {
+				const foundReading = cityObj.reading.find(
+					(dayReading) => dayReading.dt === datetimeTomorrow
+				);
+				return {
+					city: cityObj.city,
+					reading: foundReading,
+				};
+			});
 		}
 
 		return [];
@@ -99,6 +98,7 @@ class CityContainer extends Component {
 			<CityPage
 				handleDeleteCity={this.handleDeleteCity}
 				handleCaretToggle={this.handleCaretToggle}
+				refreshWeather={this.refreshWeather}
 				isCitiesLoaded={isCitiesLoaded}
 				cities={this.setTomorrowsWeather()}
 			/>
@@ -112,8 +112,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	deleteCity: (id) => dispatch(deleteCity(id)),
-	fetchDailyReadingStart: (cityID) =>
-		dispatch(fetchDailyReadingStart(cityID)),
+	fetchDailyReadingForUpdateStart: (cityID) =>
+		dispatch(fetchDailyReadingForUpdateStart(cityID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityContainer);

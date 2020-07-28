@@ -2,7 +2,7 @@ import { CityActionTypes } from "./city.types";
 
 import { formatCitySearchResults } from "./city.utils";
 import { filterDailyReading } from "../weather/weather.utils.js";
-import { removeCity } from "../city/city.utils.js";
+import { removeCity, updateCity } from "../city/city.utils.js";
 
 const INITIAL_STATE = {
 	cities: [],
@@ -18,6 +18,14 @@ const cityReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				cities: [...state.cities, filterDailyReading(action.payload)],
+			};
+		case CityActionTypes.UPDATE_CITY_WITH_DATA:
+			return {
+				...state,
+				cities: updateCity(
+					state.cities,
+					filterDailyReading(action.payload)
+				),
 			};
 		case CityActionTypes.DELETE_CITY:
 			return {
