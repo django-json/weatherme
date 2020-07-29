@@ -11,6 +11,8 @@
 // 	return Math.round(((value - 32) * 5) / 9) + "°C";
 // };
 
+import moment from "moment";
+
 export const getYear = (datetime) => {
 	return new Date(datetime * 1000).getFullYear();
 };
@@ -21,6 +23,10 @@ export const getMonth = (datetime) => {
 
 export const getDate = (datetime) => {
 	return new Date(datetime * 1000).getDate();
+};
+
+export const getNewDateByFormat = (format) => {
+	return moment().format(format);
 };
 
 export const setDate = (reading) => {

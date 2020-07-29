@@ -16,3 +16,8 @@ export const selectIsWeatherDataLoaded = createSelector(
 	[selectDailyReading],
 	(dailyReading) => !!dailyReading
 );
+
+export const selectTimeRefreshed = createSelector(
+	[selectWeather],
+	(weather) => weather.timeRefreshed
+);

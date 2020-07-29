@@ -11,6 +11,7 @@ import {
 	selectCities,
 	selectIsCitiesLoaded,
 } from "../../redux/city/city.selectors";
+import { selectTimeRefreshed } from "../../redux/weather/weather.selectors";
 
 import {
 	getIndexOf,
@@ -92,13 +93,14 @@ class CityContainer extends Component {
 	}
 
 	render() {
-		const { isCitiesLoaded } = this.props;
+		const { isCitiesLoaded, timeRefreshed } = this.props;
 
 		return (
 			<CityPage
 				handleDeleteCity={this.handleDeleteCity}
 				handleCaretToggle={this.handleCaretToggle}
 				refreshWeather={this.refreshWeather}
+				timeRefreshed={timeRefreshed}
 				isCitiesLoaded={isCitiesLoaded}
 				cities={this.setTomorrowsWeather()}
 			/>
@@ -108,6 +110,7 @@ class CityContainer extends Component {
 const mapStateToProps = createStructuredSelector({
 	cities: selectCities,
 	isCitiesLoaded: selectIsCitiesLoaded,
+	timeRefreshed: selectTimeRefreshed,
 });
 
 const mapDispatchToProps = (dispatch) => ({

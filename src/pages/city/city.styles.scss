@@ -19,6 +19,26 @@
 	.list-container {
 		margin: 1em 2em 2em 2em;
 		height: 100%;
+		
+		.refresh-container {
+			display: inline-block;
+			color: white;
+			
+			span:first-child {
+				margin-left: 5px;
+			}
+
+			.refresh {
+				cursor: pointer;
+
+				.react-icons {
+					margin-left: -5px;
+					width: 2.3em;
+					height: 2.3em;
+					vertical-align: middle;
+				}
+			}
+		}
 
 		h2 {
 			text-align: center;

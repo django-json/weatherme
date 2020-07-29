@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { persistReducer, createTransform } from "redux-persist";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
 import { createWhitelistFilter } from "redux-persist-transform-filter";
 
@@ -10,6 +11,7 @@ import cityReducer from "./city/city.reducer";
 const persistConfig = {
 	key: "root",
 	storage,
+	stateReconciler: autoMergeLevel2,
 	transforms: [
 		createWhitelistFilter("city", ["cities"]),
 		createTransform(
