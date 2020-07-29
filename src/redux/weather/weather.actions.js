@@ -15,12 +15,17 @@ export const fetchDailyReadingForUpdateStart = (cityIDs) => ({
 	payload: { cityIDs },
 });
 
-export const fetchDailyReadingForAddSuccess = ({forecast}) => ({
+export const setTimeRefreshed = (timeRefreshed) => ({
+	type: WeatherActionTypes.SET_TIME_REFRESHED,
+	payload: timeRefreshed,
+});
+
+export const fetchDailyReadingForAddSuccess = ({ forecast }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS,
 	payload: { forecast },
 });
 
-export const fetchDailyReadingForUpdateSuccess = ({forecast}) => ({
+export const fetchDailyReadingForUpdateSuccess = ({ forecast }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_SUCCESS,
 	payload: { forecast },
 });

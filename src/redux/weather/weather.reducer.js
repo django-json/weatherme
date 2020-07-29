@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 	isFetching: false,
 	dailyReading: null,
 	error: "",
+	timeRefreshed: "Not Set",
 };
 
 const weatherReducer = (state = INITIAL_STATE, action) => {
@@ -35,6 +36,11 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: false,
 				error: action.payload,
+			};
+		case WeatherActionTypes.SET_TIME_REFRESHED:
+			return {
+				...state,
+				timeRefreshed: action.payload,
 			};
 		default:
 			return state;

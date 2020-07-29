@@ -1,4 +1,6 @@
 import React from "react";
+import { WiRefresh } from "react-icons/wi";
+import { IconContext } from "react-icons";
 
 import "./city.styles.scss";
 
@@ -6,7 +8,13 @@ import CityAdditionContainer from "../../components/city-addition/city-addition.
 import List from "../../components/list/list.component";
 import City from "../../components/city/city.component";
 
-const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
+const CityPage = ({
+	cities,
+	isCitiesLoaded,
+	handleDeleteCity,
+	refreshWeather,
+	timeRefreshed,
+}) => {
 	return (
 		<div className="city-page">
 			<div className="city-page-header">
@@ -15,11 +23,19 @@ const CityPage = ({ cities, isCitiesLoaded, handleDeleteCity }) => {
 			</div>
 			<div className="list-container">
 				{isCitiesLoaded ? (
-					<List
-						items={cities}
-						itemRenderer={City}
-						handleDeleteCity={handleDeleteCity}
-					/>
+					<IconContext.Provider value={{ className: "react-icons" }}>
+						<div className="refresh-container">
+							<span>Updated {timeRefreshed}</span>
+							<span className="refresh" onClick={refreshWeather}>
+								<WiRefresh />
+							</span>
+						</div>
+						<List
+							items={cities}
+							itemRenderer={City}
+							handleDeleteCity={handleDeleteCity}
+						/>
+					</IconContext.Provider>
 				) : (
 					<h2>No City Available. Add City to Show...</h2>
 				)}

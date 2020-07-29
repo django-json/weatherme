@@ -4,11 +4,14 @@ import {
 	fetchDailyReadingForAddSuccess,
 	fetchDailyReadingForUpdateSuccess,
 	fetchDailyReadingFailure,
+	setTimeRefreshed,
 } from "./weather.actions";
 
 import { WeatherActionTypes } from "./weather.types";
 
 import { addCity, updateCity } from "../city/city.sagas";
+
+import { getNewDateByFormat } from "../../utils/utils";
 
 // export function* fetchDailyReadingAsync({
 // 	payload: {
@@ -48,9 +51,9 @@ export function* fetchDailyReadingAsync({
 		);
 
 		const forecastDataJson = yield fetchWeatherForecastData.json();
-		return {forecast: forecastDataJson};
+		return { forecast: forecastDataJson };
 	} catch (error) {
-		return {error};
+		return { error };
 	}
 }
 
@@ -68,39 +71,50 @@ export function* fetchDailyReadingForAddStart() {
 	);
 	const newForecastData = yield call(fetchDailyReadingAsync, action);
 
-	if(!newForecastData.error) {
+	if (!newForecastData.error) {
 		yield put(fetchDailyReadingForAddSuccess(newForecastData));
-	}
-	else {
+	} else {
 		yield put(fetchDailyReadingFailure(newForecastData.error));
 	}
 }
 
 export function* fetchDailyReadingForUpdateStart() {
-	const { payload: { cityIDs } } = yield take(
-		WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START
-	);
+	const {
+		payload: { cityIDs },
+	} = yield take(WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START);
 
-	for(var count = 0; count < cityIDs.length; count++) {
-		let cityID = cityIDs[count];
-		let updatedForecastData = yield call(fetchDailyReadingAsync, { payload: { city: { id: cityID }}});
+	let count;
+	for (count = 0; count < cityIDs.length; count++) {
+		let id = cityIDs[count];
+		let updatedForecastData = yield call(fetchDailyReadingAsync, {
+			payload: { city: { id } },
+		});
 
-		if(!updatedForecastData.error) {
+		if (!updatedForecastData.error) {
 			yield put(fetchDailyReadingForUpdateSuccess(updatedForecastData));
-		}
-		else {
+		} else {
 			yield put(fetchDailyReadingFailure(updatedForecastData.error));
 		}
+	}
+
+	if (count === cityIDs.length) {
+		yield put(setTimeRefreshed(getNewDateByFormat("MM/DD h:mm A")));
 	}
 }
 //Endline of City Saga Managers
 
 export function* onFetchDailyReadingForAddSuccess() {
-	yield takeEvery(WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS, addCity);
+	yield takeEvery(
+		WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS,
+		addCity
+	);
 }
 
 export function* onFetchDailyReadingForUpdateSuccess() {
-	yield takeEvery(WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_SUCCESS, updateCity);
+	yield takeEvery(
+		WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_SUCCESS,
+		updateCity
+	);
 }
 
 export function* weatherSagas() {
