@@ -22,20 +22,20 @@ const CityPage = ({
 				<CityAdditionContainer />
 			</div>
 			<div className="list-container">
-				<IconContext.Provider value={{ className: "react-icons" }}>
-					<div className="refresh-container">
-						<span>Updated {timeRefreshed}</span>
-						<span className="refresh" onClick={refreshWeather}>
-							<WiRefresh />
-						</span>
-					</div>
-				</IconContext.Provider>
 				{isCitiesLoaded ? (
-					<List
-						items={cities}
-						itemRenderer={City}
-						handleDeleteCity={handleDeleteCity}
-					/>
+					<IconContext.Provider value={{ className: "react-icons" }}>
+						<div className="refresh-container">
+							<span>Updated {timeRefreshed}</span>
+							<span className="refresh" onClick={refreshWeather}>
+								<WiRefresh />
+							</span>
+						</div>
+						<List
+							items={cities}
+							itemRenderer={City}
+							handleDeleteCity={handleDeleteCity}
+						/>
+					</IconContext.Provider>
 				) : (
 					<h2>No City Available. Add City to Show...</h2>
 				)}
