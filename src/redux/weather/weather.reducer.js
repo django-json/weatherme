@@ -10,12 +10,6 @@ const INITIAL_STATE = {
 
 const weatherReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case WeatherActionTypes.FETCH_DAILY_READING_START:
-			return {
-				...state,
-				isFetching: true,
-				error: "",
-			};
 		case WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START:
 		case WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START:
 			return {

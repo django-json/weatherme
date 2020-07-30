@@ -1,10 +1,5 @@
 import { WeatherActionTypes } from "./weather.types";
 
-export const fetchDailyReadingStart = (id) => ({
-	type: WeatherActionTypes.FETCH_DAILY_READING_START,
-	payload: { city: { id } },
-});
-
 export const fetchDailyReadingForAddStart = (id) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START,
 	payload: { city: { id } },

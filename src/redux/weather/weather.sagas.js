@@ -32,13 +32,6 @@ export function* fetchDailyReadingAsync({
 	}
 }
 
-export function* fetchDailyReadingStart() {
-	yield takeEvery(
-		WeatherActionTypes.FETCH_DAILY_READING_START,
-		fetchDailyReadingAsync
-	);
-}
-
 export function* fetchDailyReadingForAddStart() {
 	yield takeEvery(
 		WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START,
@@ -103,7 +96,6 @@ export function* onFetchDailyReadingForUpdateSuccess() {
 
 export function* weatherSagas() {
 	yield all([
-		call(fetchDailyReadingStart),
 		call(fetchDailyReadingForAddStart),
 		call(fetchDailyReadingForUpdateStart),
 		call(onFetchDailyReadingForAddSuccess),
