@@ -1,4 +1,4 @@
-import { take, takeEvery, call, put, all } from "redux-saga/effects";
+import { takeEvery, call, put, all } from "redux-saga/effects";
 
 import {
 	fetchDailyReadingForAddSuccess,
@@ -12,31 +12,6 @@ import { WeatherActionTypes } from "./weather.types";
 import { addCity, updateCity } from "../city/city.sagas";
 
 import { getNewDateByFormat } from "../../utils/utils";
-
-// export function* fetchDailyReadingAsync({
-// 	payload: {
-// 		city: { id },
-// 	},
-// }) {
-// 	const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
-// 	try {
-// 		//Fetching the API data
-// 		const fetchWeatherForecastData = yield fetch(
-// 			`http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=imperial&APPID=${apiKey}`
-// 		);
-
-// 		const forecastDataJson = yield fetchWeatherForecastData.json();
-// 		//Dispatching fetchDailyReadingSuccess action to update weatherReducer with the payload
-// 		yield put(
-// 			fetchDailyReadingSuccess({
-// 				forecast: forecastDataJson,
-// 			})
-// 		);
-// 	} catch (error) {
-// 		//Dispatching fetchDailyReadingFailure action when data fetching fails
-// 		yield put(fetchDailyReadingFailure(error));
-// 	}
-// }
 
 export function* fetchDailyReadingAsync({
 	payload: {
@@ -64,12 +39,23 @@ export function* fetchDailyReadingStart() {
 	);
 }
 
-//City Saga Managers for adding city and updating city
 export function* fetchDailyReadingForAddStart() {
-	const action = yield take(
-		WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START
+	yield takeEvery(
+		WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_START,
+		fetchDailyReadingForAddStartManager
 	);
-	const newForecastData = yield call(fetchDailyReadingAsync, action);
+}
+
+export function* fetchDailyReadingForUpdateStart() {
+	yield takeEvery(
+		WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START,
+		fetchDailyReadingForUpdateStartManager
+	);
+}
+
+//Saga Managers for adding city and updating city
+export function* fetchDailyReadingForAddStartManager(action) {
+	const newForecastData = yield fetchDailyReadingAsync(action);
 
 	if (!newForecastData.error) {
 		yield put(fetchDailyReadingForAddSuccess(newForecastData));
@@ -78,15 +64,13 @@ export function* fetchDailyReadingForAddStart() {
 	}
 }
 
-export function* fetchDailyReadingForUpdateStart() {
-	const {
-		payload: { cityIDs },
-	} = yield take(WeatherActionTypes.FETCH_DAILY_READING_FOR_UPDATE_START);
-
+export function* fetchDailyReadingForUpdateStartManager({
+	payload: { cityIDs },
+}) {
 	let count;
 	for (count = 0; count < cityIDs.length; count++) {
 		let id = cityIDs[count];
-		let updatedForecastData = yield call(fetchDailyReadingAsync, {
+		let updatedForecastData = yield fetchDailyReadingAsync({
 			payload: { city: { id } },
 		});
 
@@ -101,7 +85,7 @@ export function* fetchDailyReadingForUpdateStart() {
 		yield put(setTimeRefreshed(getNewDateByFormat("MM/DD h:mm A")));
 	}
 }
-//Endline of City Saga Managers
+//Endline of Saga Managers
 
 export function* onFetchDailyReadingForAddSuccess() {
 	yield takeEvery(
