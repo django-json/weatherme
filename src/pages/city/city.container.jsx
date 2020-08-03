@@ -5,7 +5,10 @@ import { createStructuredSelector } from "reselect";
 import CityPage from "./city.component";
 
 import { deleteCity } from "../../redux/city/city.actions";
-import { fetchDailyReadingForUpdateStart } from "../../redux/weather/weather.actions";
+import {
+	fetchDailyReadingForUpdateStart,
+	resetTimeRefreshed,
+} from "../../redux/weather/weather.actions";
 
 import {
 	selectCities,
@@ -36,7 +39,6 @@ class CityContainer extends Component {
 	}
 
 	refreshWeather() {
-		console.log("Updating Weather Data");
 		const { cities, fetchDailyReadingForUpdateStart } = this.props;
 
 		const cityIDs = cities.map((cityObj) => cityObj.city.id);
@@ -61,8 +63,8 @@ class CityContainer extends Component {
 			);
 
 			// If the last item is rendered, then automatically request an updated weather data from the weather api to get a new list of weather data.
-			if (index + 1 === cities[0].reading.length) {
-				console.log("I am the last item on the `cities` list");
+			//Or if the index is equal to -1 as the day the user use the app again has the day the last weather data item's day has which when getting the index of a specific item it found nothing.
+			if (index === -1 || index + 1 === cities[0].reading.length) {
 				this.refreshWeather();
 			}
 
@@ -84,8 +86,10 @@ class CityContainer extends Component {
 		//This will stop the bubbling process of an event from child to parent element.
 		event.stopPropagation();
 
-		const { deleteCity } = this.props;
+		const { deleteCity, cities, resetTimeRefreshed } = this.props;
 		deleteCity(cityID);
+
+		if (cities.length === 1) resetTimeRefreshed();
 	}
 
 	handleCaretToggle(event) {
@@ -117,6 +121,7 @@ const mapDispatchToProps = (dispatch) => ({
 	deleteCity: (id) => dispatch(deleteCity(id)),
 	fetchDailyReadingForUpdateStart: (cityID) =>
 		dispatch(fetchDailyReadingForUpdateStart(cityID)),
+	resetTimeRefreshed: () => dispatch(resetTimeRefreshed()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityContainer);

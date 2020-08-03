@@ -15,6 +15,10 @@ export const setTimeRefreshed = (timeRefreshed) => ({
 	payload: timeRefreshed,
 });
 
+export const resetTimeRefreshed = () => ({
+	type: WeatherActionTypes.RESET_TIME_REFRESHED,
+});
+
 export const fetchDailyReadingForAddSuccess = ({ forecast }) => ({
 	type: WeatherActionTypes.FETCH_DAILY_READING_FOR_ADD_SUCCESS,
 	payload: { forecast },

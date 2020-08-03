@@ -36,6 +36,11 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				timeRefreshed: action.payload,
 			};
+		case WeatherActionTypes.RESET_TIME_REFRESHED:
+			return {
+				...state,
+				timeRefreshed: "Not Set",
+			};
 		default:
 			return state;
 	}

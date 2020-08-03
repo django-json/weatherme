@@ -13,8 +13,6 @@ export const removeCity = (cities, id) => {
 //Use the index to manipulate that specific item/element to replaced the old data with the new one.
 
 export const updateCity = (cities, updatedCityData) => {
-	console.log(cities);
-
 	const cityIDs = cities.map((cityObj) => cityObj.city.id);
 	const index = cityIDs.indexOf(updatedCityData.city.id);
 	//Assigning the `reading` value with the updated value.

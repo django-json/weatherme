@@ -18,11 +18,11 @@ export function* fetchDailyReadingAsync({
 		city: { id },
 	},
 }) {
-	const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+	const apiKey = `${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
 	try {
 		//Fetching the API data
 		const fetchWeatherForecastData = yield fetch(
-			`http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=imperial&APPID=${apiKey}`
+			`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=imperial&APPID=${apiKey}`
 		);
 
 		const forecastDataJson = yield fetchWeatherForecastData.json();
@@ -60,7 +60,7 @@ export function* fetchDailyReadingForAddStartManager(action) {
 export function* fetchDailyReadingForUpdateStartManager({
 	payload: { cityIDs },
 }) {
-	let count;
+	let count, hasError;
 	for (count = 0; count < cityIDs.length; count++) {
 		let id = cityIDs[count];
 		let updatedForecastData = yield fetchDailyReadingAsync({
@@ -71,10 +71,11 @@ export function* fetchDailyReadingForUpdateStartManager({
 			yield put(fetchDailyReadingForUpdateSuccess(updatedForecastData));
 		} else {
 			yield put(fetchDailyReadingFailure(updatedForecastData.error));
+			hasError = true;
 		}
 	}
 
-	if (count === cityIDs.length) {
+	if (count === cityIDs.length && !hasError) {
 		yield put(setTimeRefreshed(getNewDateByFormat("MM/DD h:mm A")));
 	}
 }
